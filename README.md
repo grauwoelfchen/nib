@@ -2,6 +2,16 @@
 
 This is a Blog Entry Transformer betA.
 
+## Usage
+
+```zsh
+% make build
+
+% mkdir blog
+% touch blog/foo.rst
+
+% ./target/debug/beta
+```
 
 ## License
 

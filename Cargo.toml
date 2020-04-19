@@ -35,6 +35,9 @@ path = "src/main.rs"
 panic = "abort"
 
 [dependencies]
+glob = "0.3.0"
+rst_parser = "0.3.1"
+rst_renderer = "0.3.1"
 
 [dev-dependencies.cargo-husky]
 version = "1"
