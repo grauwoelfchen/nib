@@ -1,0 +1,42 @@
+[package]
+name = "beta"
+version = "0.0.1"
+authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
+description = "A blog entry transformer"
+documentation = "https://gitlab.com/grauwoelfchen/beta"
+repository = "https://gitlab.com/grauwoelfchen/beta"
+homepage = "https://gitlab.com/grauwoelfchen/beta"
+readme = "README.md"
+keywords = ["cli", "text"]
+categories = ["command-line-utilities", "text-processing"]
+license = "Apache-2.0"
+exclude = [
+  "test/*",
+  ".cargo-husky/*",
+  "/.clippy.toml",
+  "/.rustfmt.toml",
+  "/.gitlab-ci.yml",
+  "/.env.ci.sample",
+]
+edition = "2018"
+
+[badges]
+gitlab = { repository = "grauwoelfchen/beta", branch = "master" }
+
+[lib]
+name = "beta"
+path = "src/lib.rs"
+
+[[bin]]
+name = "beta"
+path = "src/main.rs"
+
+[profile.release]
+panic = "abort"
+
+[dependencies]
+
+[dev-dependencies.cargo-husky]
+version = "1"
+default-features = false
+features = ["user-hooks"]
