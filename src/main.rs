@@ -6,15 +6,28 @@
 //! % beta
 //! ```
 use std::fs;
-use std::result::Result;
+use std::io::{Error, ErrorKind};
+use std::path::Path;
 
-use beta::{generate, get_entries, skip_meta};
+use beta::{get_entries, generate_entry};
 
-fn main() {
-    let ptrn = "blog/*.rst";
-    for e in get_entries(ptrn).filter_map(Result::ok) {
-        let s = fs::read_to_string(e).unwrap();
-        let r = generate(&format!("{}\n", skip_meta(&s)));
-        println!("{}\n", r.unwrap());
+const SRC_DIR: &str = "blog";
+const DST_DIR: &str = "dst";
+
+fn main() -> std::io::Result<()> {
+    let dst = Path::new(DST_DIR);
+    if dst.exists() {
+        fs::remove_dir_all(DST_DIR)?;
     }
+    fs::create_dir_all(DST_DIR)?;
+
+    let ptrn = Path::new(SRC_DIR).join("*.rst");
+    let path = ptrn
+        .to_str()
+        .ok_or_else(|| Error::new(ErrorKind::Other, "Unexpected source"))?;
+
+    for e in get_entries(path).filter_map(std::result::Result::ok) {
+        generate_entry(&e, DST_DIR)?;
+    }
+    Ok(())
 }
