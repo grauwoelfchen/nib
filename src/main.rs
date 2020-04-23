@@ -9,7 +9,7 @@ use std::fs;
 use std::io::{Error, ErrorKind};
 use std::path::Path;
 
-use beta::{get_entries, generate_entry};
+use beta::{get_entries, generate_entry, load_registry};
 
 const SRC_DIR: &str = "blog";
 const DST_DIR: &str = "dst";
@@ -26,8 +26,9 @@ fn main() -> std::io::Result<()> {
         .to_str()
         .ok_or_else(|| Error::new(ErrorKind::Other, "Unexpected source"))?;
 
+    let mut reg = load_registry();
     for e in get_entries(path).filter_map(std::result::Result::ok) {
-        generate_entry(&e, DST_DIR)?;
+        generate_entry(&e, &mut reg, DST_DIR)?;
     }
     Ok(())
 }
