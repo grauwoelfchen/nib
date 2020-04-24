@@ -1,8 +1,4 @@
-use std::collections::HashMap;
-use std::cmp::{Eq, Ord, Ordering, PartialEq};
-use std::fmt;
 use std::fs;
-use std::hash::{Hash, Hasher};
 use std::io::{BufWriter, Error, ErrorKind, Write};
 use std::path::{Path, PathBuf};
 
@@ -16,99 +12,20 @@ extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
 
-use serde::{Serialize, Serializer};
+mod key;
+mod var;
+
+use crate::key::Key;
+use crate::var::Variables;
 
 const META_KEY: &str = ".. ";
-
-enum Key {
-    Content,
-    Date,
-    Lang,
-    Slug,
-    Title,
-    Description,
-    Unknown,
-}
-
-#[derive(Serialize, Default)]
-struct Variables {
-    map: HashMap<Key, String>,
-}
-
-impl Variables {
-    fn add(&mut self, key: Key, value: String) -> Option<String> {
-        self.map.insert(key, value)
-    }
-
-    fn has(&self, key: &Key) -> bool {
-        self.map.get(key).is_some()
-    }
-}
-
-impl Serialize for Key {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where S: Serializer {
-        serializer.serialize_str(&self.to_string())
-    }
-}
-
-impl PartialEq for Key {
-    fn eq(&self, other: &Self) -> bool {
-        self.to_string() == other.to_string()
-    }
-}
-
-impl Eq for Key {}
-
-impl PartialOrd for Key {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.cmp(other))
-    }
-}
-
-impl Ord for Key {
-    fn cmp(&self, other: &Self) -> Ordering {
-        self.to_string().cmp(&other.to_string())
-    }
-}
-
-impl fmt::Display for Key {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match *self {
-            Self::Content => write!(f, "content"),
-            Self::Date => write!(f, "date"),
-            Self::Description => write!(f, "description"),
-            Self::Lang => write!(f, "lang"),
-            Self::Slug => write!(f, "slug"),
-            Self::Title => write!(f, "title"),
-            _ => write!(f, "unknown"),
-        }
-    }
-}
-
-impl From<&String> for Key {
-    fn from(s: &String) -> Self {
-        match s.to_ascii_lowercase().as_ref() {
-            "content" => Self::Content,
-            "date" => Self::Date,
-            "description" => Self::Description,
-            "lang" => Self::Lang,
-            "slug" => Self::Slug,
-            "title" => Self::Title,
-            _ => Self::Unknown,
-        }
-    }
-}
-
-impl Hash for Key {
-    fn hash<H: Hasher>(&self, state: &mut H) {
-        self.to_string().hash(state);
-    }
-}
 
 /// loads variables from metadata at the beginnig and file content.
 fn load(s: &str) -> Variables {
     let mut v = Variables::default();
+
+    // TODO
+    v.add(Key::Name, "Name".to_string());
 
     // default
     v.add(Key::Date, "".to_string());
@@ -168,6 +85,9 @@ fn render(s: &str) -> Result<String, Error> {
 
 pub fn load_registry<'a>() -> Handlebars<'a> {
     let mut reg = Handlebars::new();
+    let _ = reg.register_template_file("_header", "tmpl/_header.hbs");
+    let _ = reg.register_template_file("_article", "tmpl/_article.hbs");
+    let _ = reg.register_template_file("_footer", "tmpl/_footer.hbs");
     let _ = reg.register_template_file("_layout", "tmpl/_layout.hbs");
     reg
 }
