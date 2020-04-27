@@ -8,10 +8,12 @@ pub enum Key {
     // site
     Name,
 
+    // auto
+    Slug,
+
     // article
     Date,
     Lang,
-    Slug,
     Title,
     Description,
     Content,

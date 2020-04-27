@@ -16,7 +16,7 @@ mod key;
 mod var;
 
 use crate::key::Key;
-use crate::var::Variables;
+pub use crate::var::Variables;
 
 const META_KEY: &str = ".. ";
 
@@ -30,7 +30,6 @@ fn load(s: &str) -> Variables {
     // default
     v.add(Key::Date, "".to_string());
     v.add(Key::Lang, "en".to_string());
-    v.add(Key::Slug, "/".to_string());
     v.add(Key::Title, "".to_string());
     v.add(Key::Description, "".to_string());
 
@@ -85,35 +84,92 @@ fn render(s: &str) -> Result<String, Error> {
 
 pub fn load_registry<'a>() -> Handlebars<'a> {
     let mut reg = Handlebars::new();
-    let _ = reg.register_template_file("_header", "tmpl/_header.hbs");
     let _ = reg.register_template_file("_article", "tmpl/_article.hbs");
     let _ = reg.register_template_file("_footer", "tmpl/_footer.hbs");
+    let _ = reg.register_template_file("_header", "tmpl/_header.hbs");
+    let _ = reg.register_template_file("_headline", "tmpl/_headline.hbs");
+    let _ = reg.register_template_file("_index", "tmpl/_index.hbs");
     let _ = reg.register_template_file("_layout", "tmpl/_layout.hbs");
+    let _ = reg.register_template_file("_layout.idx", "tmpl/_layout.index.hbs");
     reg
 }
 
-/// generates a HTML file into dst directory.
+pub fn add_escape_fn(reg: &mut Handlebars) {
+    reg.register_escape_fn(no_escape)
+}
+
+pub fn rem_escape_fn(reg: &mut Handlebars) {
+    reg.unregister_escape_fn()
+}
+
+/// generates a HTML file into dst directory and returns variables.
 pub fn generate_entry(
     e: &PathBuf,
-    reg: &mut Handlebars,
+    reg: &Handlebars,
+    dst: &str,
+) -> Result<Variables, Error>
+{
+    let mut data = load(&fs::read_to_string(e)?);
+    if !data.has(Key::Content) {
+        let empty = Variables::new();
+        return Ok(empty);
+    }
+
+    let stem = e.file_stem().unwrap().to_string_lossy().into_owned();
+    let name = stem + ".html";
+    let path = Path::new(dst).join(&name);
+
+    data.add(Key::Slug, name);
+    let mut file = fs::File::create(path)?;
+
+    let result = reg
+        .render("_layout", &data.to_json())
+        .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+    file.write_all(result.as_bytes())?;
+    Ok(data)
+}
+
+pub fn generate_index(
+    dat: &mut Vec<Variables>,
+    reg: &Handlebars,
     dst: &str,
 ) -> Result<(), Error>
 {
-    let stem = e.file_stem().unwrap().to_string_lossy().into_owned();
-    let name = vec![stem, "html".to_string()].join(".");
-
-    let data = load(&fs::read_to_string(e)?);
-    if !data.has(&Key::Content) {
-        return Ok(());
-    }
-
-    let path = Path::new(dst).join(name);
+    let dst_dir = Path::new(dst);
+    let path = dst_dir.join("index.html");
     let mut file = fs::File::create(path)?;
 
-    reg.register_escape_fn(no_escape);
-    let result = reg
-        .render("_layout", &json!(&data.map))
+    // TODO
+    let lang = dat[0].get(Key::Lang).ok_or(ErrorKind::InvalidInput)?;
+    let title = dat[0].get(Key::Name).ok_or(ErrorKind::InvalidInput)?;
+
+    let mut result: String = "".to_string();
+    for v in dat {
+        result = result +
+            &reg.render("_headline", &v.to_json())
+                .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+    }
+
+    result = reg
+        .render(
+            "_index",
+            &json!({
+                "title": title,
+                "content": "<ul>".to_string() + &result + "</ul>",
+            }),
+        )
         .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+    result = reg
+        .render(
+            "_layout.idx",
+            &json!({
+                "lang": lang,
+                "title": title,
+                "content": &result,
+            }),
+        )
+        .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
+
     file.write_all(result.as_bytes())?;
     Ok(())
 }

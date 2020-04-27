@@ -31,7 +31,7 @@ async fn response(req: Request<Body>) -> Result<Response<Body>> {
             send_file(INDEX).await
         },
         (&Method::GET, path) if path.ends_with(".html") => {
-            send_file(path).await
+            send_file(&path[1..]).await
         },
         _ => not_found(),
     }
