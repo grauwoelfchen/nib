@@ -29,7 +29,7 @@ fn main() -> std::io::Result<()> {
         .to_str()
         .ok_or_else(|| Error::new(ErrorKind::Other, "Unexpected source"))?;
 
-    let mut reg = load_registry();
+    let mut reg = load_registry().expect("");
     let mut dat: Vec<Variables> = vec![];
 
     add_escape_fn(&mut reg);

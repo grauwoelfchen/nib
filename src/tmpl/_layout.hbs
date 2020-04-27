@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="{{description}}">
+  <meta name="viewport" content="width=device-width">
+  <title>{{title}} - {{name}}</title>
+</head>
+<body>
+  <a href="#article" class="sr-only sr-only-focusable"></a>
+  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+  <div id="sidebar">
+    <div class="sidebar-item">
+    </div>
+  </div>
+  <div class="container">
+    <div id="header">
+      {{> _header ~}}
+    </div>
+    <article id="article">
+      {{> _article ~}}
+    </article>
+    <div id="footer">
+      {{> _footer ~}}
+    </div>
+  </div>
+  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+</body>
+</html>
