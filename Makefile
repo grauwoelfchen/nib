@@ -38,12 +38,29 @@ build\:debug:  ## Run debug build [alias: build]
 	cargo build
 .PHONY: build\:debug
 
+build\:debug\:server:  ## Build a development server [alias: build:server]
+	cargo build --bin server
+.PHONY: build\:release
+
+build\:server: | build\:debug\:server
+.PHONY: build\:server
+
 build: | build\:debug
 .PHONY: build
 
 build\:release:  ## Create release build
 	cargo build --release
 .PHONY: build\:release
+
+build\:release\:server:  ## Build a development server with release mode
+	cargo build --bin server --release
+	.PHONY: build\:release\:server
+# }}}
+
+# server {{{
+watch\:server:
+	cargo build --exec 'run --bin server' --delay 0.3
+.PHONY: watch\:server
 # }}}
 
 # other {{{

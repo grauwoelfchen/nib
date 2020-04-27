@@ -9,7 +9,7 @@ use std::fs;
 use std::io::{Error, ErrorKind};
 use std::path::Path;
 
-use beta::{get_entries, generate_entry, load_registry};
+use libbeta::{get_entries, generate_entry, load_registry};
 
 const SRC_DIR: &str = "blog";
 const DST_DIR: &str = "dst";

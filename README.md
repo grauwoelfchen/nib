@@ -13,6 +13,15 @@ This is a Blog Entry Transformer betA.
 % ./target/debug/beta
 ```
 
+### Development
+
+Start development server.
+
+```zsh
+% make build:server
+% ./target/debug/beta-server
+```
+
 ## License
 
 ```text
