@@ -25,14 +25,11 @@ async fn main() {
 /// returns a result conatins result response body if it's expected.
 async fn response(req: Request<Body>) -> Result<Response<Body>> {
     let path = req.uri().path();
-    // TODO: allow css, js and images
     match (req.method(), path) {
         (&Method::GET, "/") | (&Method::GET, "/index.html") => {
             send_file(INDEX).await
         },
-        (&Method::GET, path) if path.ends_with(".html") => {
-            send_file(&path[1..]).await
-        },
+        (&Method::GET, path) => send_file(&path[1..]).await,
         _ => not_found(),
     }
 }
