@@ -12,7 +12,7 @@ use std::path::Path;
 
 use libbeta::fs::{get_entries, rem_results};
 use libbeta::registry::{add_escape_fn, del_escape_fn, init_registry};
-use libbeta::writer::{write_entry, make_index};
+use libbeta::writer::{make_index, move_entry, save_entry};
 
 const SRC_DIR: &str = "blog";
 const DST_DIR: &str = "dst";
@@ -38,7 +38,10 @@ fn setup() -> Result<(), Error> {
                 .ok_or_else(|| Error::new(ErrorKind::Other, "no pattern"))?;
             rem_results(dst)?;
         }
-        fs::create_dir_all(DST_DIR)
+        fs::create_dir_all(Path::new(DST_DIR).join("css"))?;
+        fs::create_dir_all(Path::new(DST_DIR).join("js"))?;
+        fs::create_dir_all(Path::new(DST_DIR).join("img"))?;
+        Ok(())
     })
 }
 
@@ -56,22 +59,46 @@ fn main() -> Result<(), Error> {
     setup()?;
 
     run(|| {
+        let mut ptrn;
+
         let src_dir = Path::new(SRC_DIR);
         if !src_dir.exists() {
             return Err(Error::new(ErrorKind::NotFound, "no src directory"));
         }
-        let ptrn = src_dir.join("*.rst");
+        ptrn = src_dir.join("*.rst");
         let src = ptrn
             .to_str()
             .ok_or_else(|| Error::new(ErrorKind::Other, "no pattern"))?;
 
         let mut dat: Vec<_> = vec![];
 
-        for e in get_entries(src).filter_map(std::result::Result::ok) {
-            let info = write_entry(&e, &reg, DST_DIR)?;
+        for e in get_entries(src).filter_map(Result::ok) {
+            let info = save_entry(&e, &reg, DST_DIR)?;
             dat.push(info);
         }
-        make_index(&mut dat, &reg, DST_DIR)
+        make_index(&mut dat, &reg, DST_DIR)?;
+
+        // TODO: static
+        let dir = Path::new(file!()).parent().expect("can't get a directory");
+        ptrn = Path::new(dir)
+            .join("theme")
+            .join("static")
+            .join("*")
+            .join("*");
+        let stc = ptrn
+            .to_str()
+            .ok_or_else(|| Error::new(ErrorKind::Other, "no pattern"))?;
+        for s in get_entries(&stc).filter_map(Result::ok) {
+            if !s.is_file() {
+                continue;
+            }
+            let ext = s.extension().map_or_else(|| "", |e| e.to_str().unwrap());
+            if ext == "css" {
+                let to = Path::new(DST_DIR).join("css");
+                move_entry(&s, &to)?;
+            }
+        }
+        Ok(())
     })?;
 
     del_escape_fn(&mut reg);

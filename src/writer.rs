@@ -8,8 +8,15 @@ use handlebars::Handlebars;
 use crate::loader::load_data;
 use crate::metadata::{Key, Metadata};
 
+/// copies file under dst directory.
+pub fn move_entry(e: &PathBuf, dst: &Path) -> Result<(), Error> {
+    let to = dst.join(e.file_name().unwrap());
+    fs::copy(e.to_str().unwrap(), to)?;
+    Ok(())
+}
+
 /// puts an entry into file in the dst directory and returns its metadata.
-pub fn write_entry(
+pub fn save_entry(
     e: &PathBuf,
     reg: &Handlebars,
     dst: &str,
@@ -28,8 +35,11 @@ pub fn write_entry(
     data.add(Key::Slug, name);
     let mut file = fs::File::create(path)?;
 
+    let meta = &mut data.to_json();
+    *meta.pointer_mut("/url").unwrap() = json!("/");
+
     let result = reg
-        .render("layout", &data.to_json())
+        .render("layout", meta)
         .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
     file.write_all(result.as_bytes())?;
     Ok(data)
@@ -51,9 +61,9 @@ pub fn make_index(
     let title = dat[0].get(Key::Name).ok_or(ErrorKind::InvalidInput)?;
 
     let mut result: String = "".to_string();
-    for v in dat {
+    for d in dat {
         result = result +
-            &reg.render("headline", &v.to_json())
+            &reg.render("headline", &d.to_json())
                 .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
     }
 
@@ -70,6 +80,7 @@ pub fn make_index(
         .render(
             "layout.idx",
             &json!({
+                "url": "/",
                 "lang": lang,
                 "title": title,
                 "content": &result,

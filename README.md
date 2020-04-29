@@ -4,23 +4,46 @@ This is a Blog Entry Transformer betA.
 
 ## Usage
 
+### Build
+
+Put your articles under `blog` directory.
+
+```zsh
+% tree blog
+blog
+└── hello-word.rst
+```
+
+And then generate HTML files into `dst` directory.
+
 ```zsh
 % make build
-
-% mkdir blog
-% touch blog/foo.rst
-
 % ./target/debug/beta
+```
+
+The output result looks like this:
+
+```zsh
+% tree dst
+dst
+├── css
+│   └── index.css
+├── hello-world.html
+├── img
+├── index.html
+└── js
 ```
 
 ### Development
 
-Start development server.
+Start development server. It serves contents in `dst` by listening
+`127.0.0.1:300`.
 
 ```zsh
 % make build:server
 % ./target/debug/beta-server
 ```
+
 
 ## License
 

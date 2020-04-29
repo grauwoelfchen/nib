@@ -8,11 +8,13 @@ pub fn load_data(s: &str) -> Metadata {
 
     // TODO: global
     v.add(Key::Name, "Name".to_string());
+    v.add(Key::Url, "/".to_string());
 
-    // meta
+    // article
+    v.add(Key::Slug, "".to_string());
+
     v.add(Key::Date, "".to_string());
     v.add(Key::Lang, "en".to_string());
-    v.add(Key::Slug, "/".to_string());
     v.add(Key::Title, "".to_string());
     v.add(Key::Description, "".to_string());
 

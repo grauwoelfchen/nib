@@ -12,6 +12,7 @@ pub const META_SUFFIX: &str = "::";
 pub enum Key {
     // site
     Name,
+    Url,
 
     // auto
     Slug,
@@ -56,13 +57,18 @@ impl Ord for Key {
 impl fmt::Display for Key {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            Self::Content => write!(f, "content"),
+            Self::Name => write!(f, "name"),
+            Self::Url => write!(f, "url"),
+
+            Self::Slug => write!(f, "slug"),
+
             Self::Date => write!(f, "date"),
             Self::Description => write!(f, "description"),
             Self::Lang => write!(f, "lang"),
-            Self::Name => write!(f, "name"),
-            Self::Slug => write!(f, "slug"),
             Self::Title => write!(f, "title"),
+
+            Self::Content => write!(f, "content"),
+
             _ => write!(f, "unknown"),
         }
     }
@@ -71,13 +77,18 @@ impl fmt::Display for Key {
 impl From<&String> for Key {
     fn from(s: &String) -> Self {
         match s.to_ascii_lowercase().as_ref() {
-            "content" => Self::Content,
+            "name" => Self::Name,
+            "url" => Self::Url,
+
+            "slug" => Self::Slug,
+
             "date" => Self::Date,
             "description" => Self::Description,
             "lang" => Self::Lang,
-            "name" => Self::Name,
-            "slug" => Self::Slug,
             "title" => Self::Title,
+
+            "content" => Self::Content,
+
             _ => Self::Unknown,
         }
     }
