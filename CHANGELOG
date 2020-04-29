@@ -1,3 +1,7 @@
+Wed 29 Apr 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Add static files support
+	* Add theme directory
+
 Thu 23 Apr 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Add a HTML renderer function
 
