@@ -1,8 +1,13 @@
+use std::collections::HashMap;
 use std::cmp::{Eq, Ord, Ordering, PartialEq};
 use std::fmt;
 use std::hash::{Hash, Hasher};
 
 use serde::{Serialize, Serializer};
+use serde_json::Value;
+
+pub const META_PREFIX: &str = ".. ";
+pub const META_SUFFIX: &str = "::";
 
 pub enum Key {
     // site
@@ -81,5 +86,39 @@ impl From<&String> for Key {
 impl Hash for Key {
     fn hash<H: Hasher>(&self, state: &mut H) {
         self.to_string().hash(state);
+    }
+}
+
+#[derive(Serialize)]
+pub struct Metadata {
+    pub map: HashMap<Key, String>,
+}
+
+impl Default for Metadata {
+    fn default() -> Self {
+        let map: HashMap<Key, String> = HashMap::new();
+        Metadata { map }
+    }
+}
+
+impl Metadata {
+    pub fn new() -> Self {
+        Metadata::default()
+    }
+
+    pub fn add(&mut self, key: Key, value: String) -> Option<String> {
+        self.map.insert(key, value)
+    }
+
+    pub fn get(&self, key: Key) -> Option<String> {
+        self.map.get(&key).map(|v| v.to_owned())
+    }
+
+    pub fn has(&self, key: Key) -> bool {
+        self.map.get(&key).is_some()
+    }
+
+    pub fn to_json(&self) -> Value {
+        json!(self.map)
     }
 }

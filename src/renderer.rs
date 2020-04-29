@@ -1,9 +1,10 @@
+//!
 use std::io::{BufWriter, Error, ErrorKind};
 
 use rst_parser::parse;
 use rst_renderer::render_html;
 
-/// renders HTML result in partial mode.
+/// returns HTML result rendered in partial mode.
 pub fn render(s: &str) -> Result<String, Error> {
     match parse(s) {
         Err(e) => {

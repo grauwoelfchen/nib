@@ -1,23 +1,23 @@
+//!
 use std::fs;
 use std::io::{Error, ErrorKind, Write};
 use std::path::{Path, PathBuf};
 
 use handlebars::Handlebars;
 
-use crate::key::Key;
-use crate::var::Variables;
-use crate::loader;
+use crate::loader::load_data;
+use crate::metadata::{Key, Metadata};
 
-/// writes an entry into file in the dst directory and returns variables.
+/// puts an entry into file in the dst directory and returns its metadata.
 pub fn write_entry(
     e: &PathBuf,
     reg: &Handlebars,
     dst: &str,
-) -> Result<Variables, Error>
+) -> Result<Metadata, Error>
 {
-    let mut data = loader::load(&fs::read_to_string(e)?);
+    let mut data = load_data(&fs::read_to_string(e)?);
     if !data.has(Key::Content) {
-        let empty = Variables::new();
+        let empty = Metadata::new();
         return Ok(empty);
     }
 
@@ -29,7 +29,7 @@ pub fn write_entry(
     let mut file = fs::File::create(path)?;
 
     let result = reg
-        .render("_layout", &data.to_json())
+        .render("layout", &data.to_json())
         .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
     file.write_all(result.as_bytes())?;
     Ok(data)
@@ -37,7 +37,7 @@ pub fn write_entry(
 
 /// creates a index file into dst directory.
 pub fn make_index(
-    dat: &mut Vec<Variables>,
+    dat: &mut Vec<Metadata>,
     reg: &Handlebars,
     dst: &str,
 ) -> Result<(), Error>
@@ -53,13 +53,13 @@ pub fn make_index(
     let mut result: String = "".to_string();
     for v in dat {
         result = result +
-            &reg.render("_headline", &v.to_json())
+            &reg.render("headline", &v.to_json())
                 .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
     }
 
     result = reg
         .render(
-            "_index",
+            "index",
             &json!({
                 "title": title,
                 "content": "<ul>".to_string() + &result + "</ul>",
@@ -68,7 +68,7 @@ pub fn make_index(
         .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
     result = reg
         .render(
-            "_layout.idx",
+            "layout.idx",
             &json!({
                 "lang": lang,
                 "title": title,

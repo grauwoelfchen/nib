@@ -4,11 +4,10 @@ extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
 
-mod key;
-mod loader;
+mod metadata;
 mod renderer;
-mod var;
 
-pub mod file;
+pub mod fs;
+pub mod loader;
 pub mod registry;
 pub mod writer;

@@ -1,9 +1,10 @@
+//!
 use std::fs;
 use std::io::Error;
 
 use glob::glob;
 
-/// gets file entries.
+/// fetches given src entries.
 pub fn get_entries(path: &str) -> glob::Paths {
     glob(path).expect("failed to read glob pattern")
 }
