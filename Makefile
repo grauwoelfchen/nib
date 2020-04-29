@@ -33,6 +33,23 @@ verify: | verify\:all
 .PHONY: verify
 # }}}
 
+# test {{{
+test\:unit:
+	@cargo test --lib --bins
+.PHONY: test\:unit
+
+test\:integration:
+	@cargo test --test integration
+.PHONY: test\:integration
+
+test\:all:
+	@cargo test --lib --bins --test integration
+.PHONY: test\:all
+
+test: | test\:all
+.PHONY: test
+# }}}
+
 # build {{{
 build\:debug:  ## Run debug build [alias: build]
 	cargo build

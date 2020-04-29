@@ -35,6 +35,10 @@ path = "src/main.rs"
 name = "beta-server"
 path = "src/bin/server.rs"
 
+[[test]]
+name = "integration"
+path = "test/test.rs"
+
 [profile.release]
 panic = "abort"
 
