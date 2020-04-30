@@ -1,18 +1,18 @@
-//! Beta
+//! Nib
 //!
 //! # Examples
 //!
 //! ```zsh
-//! % beta
+//! % nib
 //! ```
 use std::fs;
 use std::io::{Error, ErrorKind};
 use std::panic::{self, AssertUnwindSafe};
 use std::path::Path;
 
-use libbeta::fs::{get_entries, rem_results};
-use libbeta::registry::{add_escape_fn, del_escape_fn, init_registry};
-use libbeta::writer::{make_index, move_entry, save_entry};
+use libnib::fs::{get_entries, rem_results};
+use libnib::registry::{add_escape_fn, del_escape_fn, init_registry};
+use libnib::writer::{make_index, move_entry, save_entry};
 
 const SRC_DIR: &str = "blog";
 const DST_DIR: &str = "dst";

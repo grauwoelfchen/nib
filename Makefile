@@ -56,7 +56,7 @@ build\:debug:  ## Run debug build [alias: build]
 .PHONY: build\:debug
 
 build\:debug\:server:  ## Build a development server [alias: build:server]
-	cargo build --bin beta-server
+	cargo build --bin nib-server
 .PHONY: build\:release
 
 build\:server: | build\:debug\:server

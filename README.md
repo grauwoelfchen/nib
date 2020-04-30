@@ -1,6 +1,6 @@
-# Beta
+# Nib
 
-This is a Blog Entry Transformer betA.
+A yet another static blog generator.
 
 ## Usage
 
@@ -18,7 +18,7 @@ And then generate HTML files into `dst` directory.
 
 ```zsh
 % make build
-% ./target/debug/beta
+% ./target/debug/nib
 ```
 
 The output result looks like this:
@@ -41,14 +41,14 @@ Start development server. It serves contents in `dst` by listening
 
 ```zsh
 % make build:server
-% ./target/debug/beta-server
+% ./target/debug/nib-server
 ```
 
 
 ## License
 
 ```text
-Beta
+Nib
 Copyright 2020 Yasuhiro Яша Asaka
 
 Licensed under the Apache License, Version 2.0 (the "License");

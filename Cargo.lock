@@ -38,24 +38,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "beta"
-version = "0.0.1"
-dependencies = [
- "cargo-husky",
- "futures",
- "glob",
- "handlebars",
- "hyper",
- "rst_parser",
- "rst_renderer",
- "serde",
- "serde_derive",
- "serde_json",
- "tokio",
- "tokio-util",
-]
-
-[[package]]
 name = "bitflags"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -513,6 +495,24 @@ dependencies = [
  "cfg-if",
  "libc",
  "winapi 0.3.8",
+]
+
+[[package]]
+name = "nib"
+version = "0.0.1"
+dependencies = [
+ "cargo-husky",
+ "futures",
+ "glob",
+ "handlebars",
+ "hyper",
+ "rst_parser",
+ "rst_renderer",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "tokio",
+ "tokio-util",
 ]
 
 [[package]]

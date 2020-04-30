@@ -1,11 +1,11 @@
 [package]
-name = "beta"
+name = "nib"
 version = "0.0.1"
 authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
-description = "A blog entry transformer"
-documentation = "https://gitlab.com/grauwoelfchen/beta"
-repository = "https://gitlab.com/grauwoelfchen/beta"
-homepage = "https://gitlab.com/grauwoelfchen/beta"
+description = "A yet another static blog generator"
+documentation = "https://gitlab.com/grauwoelfchen/nib"
+repository = "https://gitlab.com/grauwoelfchen/nib"
+homepage = "https://gitlab.com/grauwoelfchen/nib"
 readme = "README.md"
 keywords = ["cli", "text"]
 categories = ["command-line-utilities", "text-processing"]
@@ -21,18 +21,18 @@ exclude = [
 edition = "2018"
 
 [badges]
-gitlab = { repository = "grauwoelfchen/beta", branch = "master" }
+gitlab = { repository = "grauwoelfchen/nib", branch = "master" }
 
 [lib]
-name = "libbeta"
+name = "libnib"
 path = "src/lib.rs"
 
 [[bin]]
-name = "beta"
+name = "nib"
 path = "src/main.rs"
 
 [[bin]]
-name = "beta-server"
+name = "nib-server"
 path = "src/bin/server.rs"
 
 [[test]]
