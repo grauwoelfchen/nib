@@ -214,7 +214,7 @@ body {
 
 /* sidebar */
 
-div.sidebar,.sidebar {
+#sidebar {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -233,13 +233,34 @@ div.sidebar,.sidebar {
   transition: all .3s ease-in-out;
 }
 
+#sidebar-anchor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+#sidebar-anchor:active,
+#sidebar-anchor:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+
 @media (min-width: 30em) {
-  div.sidebar {
+  #sidebar {
     font-size: .75rem;
   }
 }
 
-.sidebar a {
+#sidebar a {
   font-weight: normal;
   color: #fff;
 }
@@ -277,11 +298,11 @@ a.sidebar-nav-item:focus {
   }
 }
 
-.sidebar-checkbox {
+#sidebar-checkbox {
   display: none;
 }
 
-.sidebar-toggle {
+label[for="sidebar-checkbox"] {
   position: absolute;
   top: .7rem;
   left: 1rem;
@@ -293,59 +314,50 @@ a.sidebar-nav-item:focus {
   cursor: pointer;
 }
 
-.sidebar-toggle:before {
+label[for="sidebar-checkbox"]:before {
   display: inline-block;
   width: 1rem;
   height: .75rem;
   content: "☰";
 }
 
-.sidebar-toggle:active:before,
-#sidebar-checkbox:focus ~ .sidebar-toggle:before,
-#sidebar-checkbox:checked ~ .sidebar-toggle:before {
+label[for="sidebar-checkbox"]:active:before,
+#sidebar-checkbox:focus ~ label[for="sidebar-checkbox"]:before,
+#sidebar-checkbox:checked ~ label[for="sidebar-checkbox"]:before {
   content: "☰";
 }
 
 @media (min-width: 30.1em) {
-  .sidebar-toggle {
+  label[for="sidebar-checkbox"] {
     position: fixed;
   }
 }
 
 @media print {
-  .sidebar-toggle {
+  label[for="sidebar-checkbox"] {
     display: none;
   }
 }
 
 .wrapper,
-.sidebar,
-.sidebar-toggle {
+#sidebar,
+label[for="sidebar-checkbox"] {
   backface-visibility: hidden;
 }
+
 .wrapper,
-.sidebar-toggle {
+label[for="sidebar-checkbox"] {
   transition: transform .3s ease-in-out;
 }
 
-#sidebar-checkbox:checked + .sidebar {
+#sidebar-checkbox:checked + #sidebar {
   z-index: 10;
   visibility: visible;
 }
-#sidebar-checkbox:checked ~ .sidebar,
-#sidebar-checkbox:checked ~ .wrap,
-#sidebar-checkbox:checked ~ .sidebar-toggle {
+#sidebar-checkbox:checked ~ #sidebar,
+#sidebar-checkbox:checked ~ .wrapper,
+#sidebar-checkbox:checked ~ label[for="sidebar-checkbox"] {
   transform: translateX(18rem);
-}
-
-.sidebar-overlay #sidebar-checkbox:checked ~ .wrap {
-  transform: translateX(0);
-}
-.sidebar-overlay #sidebar-checkbox:checked ~ .sidebar-toggle {
-  box-shadow: 0 0 0 .25rem #fff;
-}
-.sidebar-overlay #sidebar-checkbox:checked ~ .sidebar {
-  box-shadow: .25rem 0 .5rem rgba(0,0,0,.1);
 }
 
 /* article */

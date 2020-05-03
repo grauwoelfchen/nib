@@ -3,10 +3,11 @@ use std::path::Path;
 
 use handlebars::{Handlebars, no_escape};
 
-const TMPL: [&str; 7] = [
+const TMPL: [&str; 8] = [
     "_article",
     "_footer",
     "_header",
+    "_sidebar",
     "headline",
     "index",
     "layout",

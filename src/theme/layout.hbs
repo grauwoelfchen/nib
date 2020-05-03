@@ -4,27 +4,28 @@
   <meta charset="utf-8">
   <meta name="description" content="{{description}}">
   <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" type="text/css" href="/css/index.css">
   <title>{{title}} - {{name}}</title>
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  {{! TODO: stylesheet }}
 </head>
-<body>
-  <a href="#article" class="sr-only sr-only-focusable"></a>
-  <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
-  <div id="sidebar">
-    <div class="sidebar-item">
+<body class="{{theme}}">
+  <a id="sidebar-anchor" href="#article"></a>
+  <input id="sidebar-checkbox" type="checkbox">
+  {{> _sidebar ~}}
+  <div class="wrapper">
+    <div class="container">
+      <div id="header" class="header">
+        {{> _header ~}}
+      </div>
+      <article id="article" class="article">
+        {{> _article ~}}
+      </article>
+      <div id="footer" class="footer">
+        {{> _footer ~}}
+      </div>
     </div>
   </div>
-  <div class="container">
-    <div id="header" class="header">
-      {{> _header ~}}
-    </div>
-    <article id="article" class="article">
-      {{> _article ~}}
-    </article>
-    <div id="footer" class="footer">
-      {{> _footer ~}}
-    </div>
-  </div>
-  <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+  <label for="sidebar-checkbox"></label>
+  {{! TODO: javascript }}
 </body>
 </html>

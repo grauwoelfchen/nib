@@ -10,8 +10,17 @@ pub const META_PREFIX: &str = ".. ";
 pub const META_SUFFIX: &str = "::";
 
 pub enum Key {
+    // author
+    Avatar,
+    Bio,
+    Email,
+    Link,
+    Nick,
+    User,
+
     // site
     Name,
+    Theme,
     Url,
 
     // auto
@@ -57,11 +66,22 @@ impl Ord for Key {
 impl fmt::Display for Key {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
+            // author
+            Self::Avatar => write!(f, "avatar"),
+            Self::Bio => write!(f, "bio"),
+            Self::Email => write!(f, "email"),
+            Self::Link => write!(f, "link"),
+            Self::Nick => write!(f, "nick"),
+            Self::User => write!(f, "user"),
+
+            // site
             Self::Name => write!(f, "name"),
             Self::Url => write!(f, "url"),
 
+            // autoh
             Self::Slug => write!(f, "slug"),
 
+            // article
             Self::Date => write!(f, "date"),
             Self::Description => write!(f, "description"),
             Self::Lang => write!(f, "lang"),
@@ -77,11 +97,22 @@ impl fmt::Display for Key {
 impl From<&String> for Key {
     fn from(s: &String) -> Self {
         match s.to_ascii_lowercase().as_ref() {
+            // author
+            "avatar" => Self::Avatar,
+            "bio" => Self::Bio,
+            "email" => Self::Email,
+            "link" => Self::Link,
+            "nick" => Self::Nick,
+            "user" => Self::User,
+
+            // site
             "name" => Self::Name,
             "url" => Self::Url,
 
+            // auto
             "slug" => Self::Slug,
 
+            // article
             "date" => Self::Date,
             "description" => Self::Description,
             "lang" => Self::Lang,

@@ -6,13 +6,22 @@ use crate::renderer::render;
 pub fn load_data(s: &str) -> Metadata {
     let mut v = Metadata::default();
 
-    // TODO: global
+    // author
+    v.add(Key::Avatar, "".to_string());
+    v.add(Key::Bio, "".to_string());
+    v.add(Key::Email, "".to_string());
+    v.add(Key::Link, "".to_string());
+    v.add(Key::Nick, "".to_string());
+    v.add(Key::User, "".to_string());
+
+    // site
     v.add(Key::Name, "Name".to_string());
     v.add(Key::Url, "/".to_string());
 
-    // article
+    // auto
     v.add(Key::Slug, "".to_string());
 
+    // article
     v.add(Key::Date, "".to_string());
     v.add(Key::Lang, "en".to_string());
     v.add(Key::Title, "".to_string());
