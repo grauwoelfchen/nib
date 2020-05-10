@@ -10,7 +10,7 @@ A yet another static site generator.
 # e.g.
 % cat config.toml
 [website]
-title = "Grauwoelfchen's Canvas"
+title = "An awesome blog"
 description = """
 """
 lang = "en" # language_code
@@ -31,10 +31,10 @@ target-dir = "dst"
 name = "Yasuhiro Яша Asaka"
 nick = "grauwoelfchen"
 bio = """
-A Programmer. I'm hacking on Gentoo/Funtoo Linux. I love greens and grow vegetables, developing Scrolliris and Eloquentlog.
+A Programmer. I'm hacking on Gentoo/Funtoo Linux. I love greens and vegetables.
 """
 email = "yasuhiro.asaka@grauwoelfchen.net"
-avatar = "https://www.gravatar.com/avatar/caf84d2962cbae495fe70b1b40872637?s=40"
+avatar = "https://www.gravatar.com/avatar/...?s=40"
 ```
 
 ### Build
