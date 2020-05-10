@@ -79,24 +79,13 @@ pub fn make_index(
 
     let mut meta = &mut json!({
         "website": c.website.to_json(),
-        "content": "",
+        "headlines": json!(&dat),
     });
     meta = merge_authors(meta, c);
 
-    let mut result: String = "".to_string();
-    for d in dat {
-        result = result +
-            &reg.render("headline", &json!({"article": &d.to_json()}))
-                .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
-    }
-
-    *meta.pointer_mut("/content").unwrap() = json!(
-        "<div class=\"content\"><ul>".to_string() + &result + "</ul></div>"
-    );
-    result = reg
+    let result = reg
         .render("layout", meta)
         .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
-
     file.write_all(result.as_bytes())?;
     Ok(())
 }

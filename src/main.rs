@@ -9,6 +9,7 @@ use std::fs;
 use std::io::{Error, ErrorKind};
 use std::panic::{self, AssertUnwindSafe};
 use std::path::Path;
+use std::process;
 
 use libnib::config::Config;
 use libnib::fs::{get_entries, rem_results};
@@ -71,7 +72,7 @@ fn main() -> Result<(), Error> {
     setup()?;
 
     let config = configure()?;
-    run(|| {
+    let result = run(|| {
         let mut ptrn;
 
         // TODO: take the paths from include
@@ -116,10 +117,15 @@ fn main() -> Result<(), Error> {
             }
         }
         Ok(())
-    })?;
+    });
 
     del_escape_fn(&mut reg);
     teardown()?;
+
+    if result.is_err() {
+        eprintln!("{}", result.err().unwrap());
+        process::exit(1);
+    }
 
     Ok(())
 }
