@@ -1,20 +1,54 @@
 # Nib
 
-A yet another static blog generator.
+A yet another static site generator.
 
 ## Usage
 
-### Build
-
-Put your articles under `blog` directory.
+### Configuration
 
 ```zsh
+# e.g.
+% cat config.toml
+[website]
+title = "Grauwoelfchen's Canvas"
+description = """
+"""
+lang = "en" # language_code
+url = "http://127.0.0.1:3000"
+include = [
+  "blog/**/*"
+]
+license = "CC-BY-NC-SA-4.0"
+# this or [[website.metadata.authors]] either is required
+# authors = [
+#  "Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>",
+# ]
+
+[build]
+target-dir = "dst"
+
+[[website.metadata.authors]]
+name = "Yasuhiro Яша Asaka"
+nick = "grauwoelfchen"
+bio = """
+A Programmer. I'm hacking on Gentoo/Funtoo Linux. I love greens and grow vegetables, developing Scrolliris and Eloquentlog.
+"""
+email = "yasuhiro.asaka@grauwoelfchen.net"
+avatar = "https://www.gravatar.com/avatar/caf84d2962cbae495fe70b1b40872637?s=40"
+```
+
+### Build
+
+Put your articles under a directory which is contained in `include` section.
+
+```zsh
+# e.g. blog
 % tree blog
 blog
 └── hello-word.rst
 ```
 
-And then generate HTML files into `dst` directory.
+And then generate HTML files into a directory specified with `target-dir`.
 
 ```zsh
 % make build

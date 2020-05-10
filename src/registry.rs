@@ -3,15 +3,8 @@ use std::path::Path;
 
 use handlebars::{Handlebars, no_escape};
 
-const TMPL: [&str; 8] = [
-    "_article",
-    "_footer",
-    "_header",
-    "_sidebar",
-    "headline",
-    "index",
-    "layout",
-    "layout.idx",
+const TMPL: [&str; 6] = [
+    "_article", "_footer", "_header", "_sidebar", "headline", "layout",
 ];
 
 pub fn init_registry<'a>() -> Result<Handlebars<'a>, Error> {

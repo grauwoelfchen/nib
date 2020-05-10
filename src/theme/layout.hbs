@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="{{lang}}">
+<html lang="{{website.lang}}">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="{{description}}">
+  <meta name="description" content="{{website.description}}">
   <meta name="viewport" content="width=device-width">
-  <title>{{title}} - {{name}}</title>
+  <title>{{# if article }}{{article.title}} - {{/if}}{{website.title}}</title>
   <link rel="stylesheet" type="text/css" href="/css/index.css">
   {{! TODO: stylesheet }}
 </head>
-<body class="{{theme}}">
+<body class="{{website.theme}}">
   <a id="sidebar-anchor" href="#article"></a>
   <input id="sidebar-checkbox" type="checkbox">
   {{> _sidebar ~}}
@@ -17,9 +17,13 @@
       <div id="header" class="header">
         {{> _header ~}}
       </div>
+      {{#if article}}
       <article id="article" class="article">
         {{> _article ~}}
       </article>
+      {{else}}
+        {{content}}
+      {{/if}}
       <div id="footer" class="footer">
         {{> _footer ~}}
       </div>
