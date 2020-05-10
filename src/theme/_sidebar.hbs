@@ -1,9 +1,13 @@
 <div id="sidebar">
   <div class="sidebar-item">
-    <img src="{{avatar}}">
-    <p><a href="{{link}}">{{user}}</a><span>({{nick}})</p>
-    <p><a href="mailto:{{email}}" target="_blank">{{email}}</a></p>
-    <p>{{bio}}</p>
+    {{#each website.metadata.authors}}
+    <div class="author">
+      <img class="avatar" src="{{this.avatar}}">
+      <p class="name">{{this.name}}<span class="nick">({{this.nick}})</span></p>
+      <p class="email"><a href="mailto:{{this.email}}" target="_blank">{{this.email}}</a></p>
+      <p class="bio">{{this.bio}}</p>
+    </div>
+    {{/each}}
   </div>
   {{! TODO: additional links }}
   {{!

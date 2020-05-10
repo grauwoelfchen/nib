@@ -2,7 +2,7 @@
 name = "nib"
 version = "0.0.1"
 authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
-description = "A yet another static blog generator"
+description = "A yet another static site generator"
 documentation = "https://gitlab.com/grauwoelfchen/nib"
 repository = "https://gitlab.com/grauwoelfchen/nib"
 homepage = "https://gitlab.com/grauwoelfchen/nib"
@@ -52,6 +52,7 @@ rst_renderer = "0.3.1"
 serde = "1.0"
 serde_derive = "1.0"
 serde_json = "1.0"
+toml = "0.5"
 
 [dependencies.tokio]
 version = "0.2.*"

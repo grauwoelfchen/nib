@@ -1,5 +1,7 @@
 <li>
-  <a href="{{slug}}"><h3>{{title}}</h3></a>
-  <span>{{date}}</span>
-  <p>{{description}}</p>
+  <a href="{{article.slug}}"><h3>{{article.title}}</h3></a>
+  <span>{{article.date}}</span>
+  {{#if article.description}}
+  <p>{{article.description}}</p>
+  {{/if}}
 </li>

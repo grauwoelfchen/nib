@@ -1,39 +1,25 @@
 //!
-use crate::metadata::{Key, Metadata, META_PREFIX, META_SUFFIX};
+use crate::metadata::{EntryKey as Key, Entry, KEY_PREFIX, KEY_SUFFIX, Metadata};
 use crate::renderer::render;
 
-/// read metadata at the beginnig of each file and its content.
-pub fn load_data(s: &str) -> Metadata {
-    let mut v = Metadata::default();
+/// read entry metadata at the beginnig of each file and its content.
+pub fn load_data(s: &str) -> Entry {
+    let mut v = Entry::default();
 
-    // author
-    v.add(Key::Avatar, "".to_string());
-    v.add(Key::Bio, "".to_string());
-    v.add(Key::Email, "".to_string());
-    v.add(Key::Link, "".to_string());
-    v.add(Key::Nick, "".to_string());
-    v.add(Key::User, "".to_string());
-
-    // site
-    v.add(Key::Name, "Name".to_string());
-    v.add(Key::Url, "/".to_string());
-
-    // auto
-    v.add(Key::Slug, "".to_string());
-
-    // article
+    v.add(Key::Content, "".to_string());
     v.add(Key::Date, "".to_string());
-    v.add(Key::Lang, "en".to_string());
-    v.add(Key::Title, "".to_string());
     v.add(Key::Description, "".to_string());
+    v.add(Key::Lang, "en".to_string());
+    v.add(Key::Slug, "".to_string()); // auto
+    v.add(Key::Title, "".to_string());
 
     let mut iter = s.lines();
     loop {
         match iter.next() {
-            Some(a) if a.starts_with(META_PREFIX) => {
-                let p: Vec<&str> = a.splitn(2, META_SUFFIX).collect();
+            Some(a) if a.starts_with(KEY_PREFIX) => {
+                let p: Vec<&str> = a.splitn(2, KEY_SUFFIX).collect();
                 if p.len() == 2 {
-                    let key_value = p[0].replace(META_PREFIX, "");
+                    let key_value = p[0].replace(KEY_PREFIX, "");
                     let key = Key::from(&key_value);
                     if key == Key::Unknown {
                         eprintln!("Unknown key: {}", &key_value);
@@ -45,9 +31,6 @@ pub fn load_data(s: &str) -> Metadata {
             _ => break,
         }
     }
-
-    // data
-    // v.add(Key::Content, "".to_string());
 
     let body: Vec<&str> = iter.collect();
     if let Ok(c) = render(&format!("{}\n", body.join("\n"))) {

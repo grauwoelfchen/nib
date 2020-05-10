@@ -4,88 +4,97 @@ use std::io::{Error, ErrorKind, Write};
 use std::path::{Path, PathBuf};
 
 use handlebars::Handlebars;
+use serde_json::Value;
 
+use crate::config::Config;
 use crate::loader::load_data;
-use crate::metadata::{Key, Metadata};
+use crate::metadata::{Author, EntryKey as Key, Entry, Metadata};
 
 /// copies file under dst directory.
-pub fn move_entry(e: &PathBuf, dst: &Path) -> Result<(), Error> {
-    let to = dst.join(e.file_name().unwrap());
-    fs::copy(e.to_str().unwrap(), to)?;
+pub fn move_entry(buf: &PathBuf, dst: &Path) -> Result<(), Error> {
+    let to = dst.join(buf.file_name().unwrap());
+    fs::copy(buf.to_str().unwrap(), to)?;
     Ok(())
+}
+
+fn merge_authors<'a>(meta: &'a mut Value, c: &Config) -> &'a mut Value {
+    *meta.pointer_mut("/website/metadata/authors").unwrap() =
+        json!(c.website.metadata.as_ref().map_or(
+            // TODO: handle email in format like: "name <email>"
+            c.authors.as_ref().map_or(vec![], |a| {
+                a.iter().map(|n| Author::new(n)).collect()
+            }),
+            |m| {
+                m.authors
+                    .as_ref()
+                    .map_or(vec![], |v| v.iter().map(Author::from).collect())
+            }
+        ));
+    meta
 }
 
 /// puts an entry into file in the dst directory and returns its metadata.
 pub fn save_entry(
-    e: &PathBuf,
+    buf: &PathBuf,
     reg: &Handlebars,
-    dst: &str,
-) -> Result<Metadata, Error>
+    c: &Config,
+) -> Result<Entry, Error>
 {
-    let mut data = load_data(&fs::read_to_string(e)?);
-    if !data.has(Key::Content) {
-        let empty = Metadata::new();
+    let mut e = load_data(&fs::read_to_string(buf)?);
+    if !e.has(Key::Content) {
+        let empty = Entry::new();
         return Ok(empty);
     }
 
-    let stem = e.file_stem().unwrap().to_string_lossy().into_owned();
+    let stem = buf.file_stem().unwrap().to_string_lossy().into_owned();
     let name = stem + ".html";
-    let path = Path::new(dst).join(&name);
+    let path = Path::new(&c.build.get_target_dir()).join(&name);
 
-    data.add(Key::Slug, name);
+    e.add(Key::Slug, name);
     let mut file = fs::File::create(path)?;
 
-    let meta = &mut data.to_json();
-    *meta.pointer_mut("/url").unwrap() = json!("/");
+    let mut meta = &mut json!({
+        "website": c.website.to_json(),
+        "article": e.to_json(),
+    });
+    meta = merge_authors(meta, c);
 
     let result = reg
         .render("layout", meta)
         .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
     file.write_all(result.as_bytes())?;
-    Ok(data)
+    Ok(e)
 }
 
 /// creates a index file into dst directory.
 pub fn make_index(
-    dat: &mut Vec<Metadata>,
+    dat: &mut Vec<Entry>,
     reg: &Handlebars,
-    dst: &str,
+    c: &Config,
 ) -> Result<(), Error>
 {
-    let dst_dir = Path::new(dst);
-    let path = dst_dir.join("index.html");
+    let dst_dir = c.build.get_target_dir();
+    let path = Path::new(&dst_dir).join("index.html");
     let mut file = fs::File::create(path)?;
 
-    // TODO
-    let lang = dat[0].get(Key::Lang).ok_or(ErrorKind::InvalidInput)?;
-    let title = dat[0].get(Key::Name).ok_or(ErrorKind::InvalidInput)?;
+    let mut meta = &mut json!({
+        "website": c.website.to_json(),
+        "content": "",
+    });
+    meta = merge_authors(meta, c);
 
     let mut result: String = "".to_string();
     for d in dat {
         result = result +
-            &reg.render("headline", &d.to_json())
+            &reg.render("headline", &json!({"article": &d.to_json()}))
                 .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
     }
 
+    *meta.pointer_mut("/content").unwrap() = json!(
+        "<div class=\"content\"><ul>".to_string() + &result + "</ul></div>"
+    );
     result = reg
-        .render(
-            "index",
-            &json!({
-                "title": title,
-                "content": "<ul>".to_string() + &result + "</ul>",
-            }),
-        )
-        .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
-    result = reg
-        .render(
-            "layout.idx",
-            &json!({
-                "url": "/",
-                "lang": lang,
-                "title": title,
-                "content": &result,
-            }),
-        )
+        .render("layout", meta)
         .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
 
     file.write_all(result.as_bytes())?;
