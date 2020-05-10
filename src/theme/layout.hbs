@@ -22,7 +22,13 @@
         {{> _article ~}}
       </article>
       {{else}}
-        {{content}}
+        <div class="content">
+          {{#each headlines}}
+              <article class="article">
+                {{> headline article=this ~}}
+              </article>
+          {{/each}}
+        </div>
       {{/if}}
       <div id="footer" class="footer">
         {{> _footer ~}}
