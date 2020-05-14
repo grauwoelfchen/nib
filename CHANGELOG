@@ -1,10 +1,11 @@
 Fri 15 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Bump version to 0.0.3
 	* Add nested directory support
 
 Sun 10 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Remove unnecessary renders and hard-coded HTML tags in wirters
 	* Remove unnecessary renders and hard-coded HTML tags in wirters
-	* Release 0.0.2
+	* Bump version to 0.0.2
 	* Add config.toml support
 
 Fri 01 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
