@@ -12,12 +12,9 @@ use std::path::Path;
 use std::process;
 
 use libnib::config::Config;
-use libnib::fs::{get_entries, rem_results};
+use libnib::fs::{get_entries, rem_results, to_child_str_path};
 use libnib::registry::{add_escape_fn, del_escape_fn, init_registry};
 use libnib::writer::{make_index, move_entry, save_entry};
-
-const SRC_DIR: &str = "blog";
-const DST_DIR: &str = "dst";
 
 // TODO: refactor errors
 
@@ -30,8 +27,9 @@ where B: FnOnce() -> Result<(), Error> {
     Ok(())
 }
 
-fn cleanup() -> Result<(), Error> {
-    let dst_dir = Path::new(DST_DIR);
+fn cleanup(c: &Config) -> Result<(), Error> {
+    let dir = c.build.get_target_dir();
+    let dst_dir = Path::new(&dir);
     if dst_dir.exists() {
         let ptrn = dst_dir.join("*.html");
         let dst = ptrn
@@ -39,9 +37,9 @@ fn cleanup() -> Result<(), Error> {
             .ok_or_else(|| Error::new(ErrorKind::Other, "no pattern"))?;
         rem_results(dst)?;
     }
-    fs::create_dir_all(Path::new(DST_DIR).join("css"))?;
-    fs::create_dir_all(Path::new(DST_DIR).join("js"))?;
-    fs::create_dir_all(Path::new(DST_DIR).join("img"))?;
+    fs::create_dir_all(dst_dir.join("css"))?;
+    fs::create_dir_all(dst_dir.join("js"))?;
+    fs::create_dir_all(dst_dir.join("img"))?;
     Ok(())
 }
 
@@ -51,9 +49,9 @@ fn configure() -> Result<Config, Error> {
     Ok(config)
 }
 
-fn setup() -> Result<(), Error> {
+fn setup(c: &Config) -> Result<(), Error> {
     run(|| {
-        cleanup()?;
+        cleanup(c)?;
         Ok(())
     })
 }
@@ -69,50 +67,56 @@ fn main() -> Result<(), Error> {
     let mut reg = init_registry().expect("");
 
     add_escape_fn(&mut reg);
-    setup()?;
 
     let config = configure()?;
+    setup(&config)?;
+
     let result = run(|| {
-        let mut ptrn;
-
-        // TODO: take the paths from include
-        let src_dir = Path::new(SRC_DIR);
-        if !src_dir.exists() {
-            return Err(Error::new(ErrorKind::NotFound, "no src directory"));
-        }
-        ptrn = src_dir.join("*.rst");
-        let src = ptrn
-            .to_str()
-            .ok_or_else(|| Error::new(ErrorKind::Other, "no pattern"))?;
-
+        let src = &config.website.get_include();
         let mut dat: Vec<_> = vec![];
 
-        for e in get_entries(src).filter_map(Result::ok) {
-            let info = save_entry(&e, &reg, &config)?;
+        let target = config.build.get_target_dir();
+        let target_dir = Path::new(&target);
+
+        for e in get_entries(src.to_vec()) {
+            let path = e
+                .as_path()
+                .parent()
+                .ok_or_else(|| Error::new(ErrorKind::NotFound, ""))?;
+            if path.is_dir() {
+                let dir = to_child_str_path(&path);
+                if !dir.is_empty() {
+                    let dst = target_dir.join(dir);
+                    fs::create_dir_all(&dst)?;
+                    let info = save_entry(&e, &dst, &reg, &config)?;
+                    dat.push(info);
+                    continue;
+                }
+            }
+            // files which are put directly under the dst directory
+            let info = save_entry(&e, &target_dir, &reg, &config)?;
             dat.push(info);
         }
         make_index(&mut dat, &reg, &config)?;
 
-        // TODO: static
-        let dir = Path::new(file!()).parent().expect("can't get a directory");
-        ptrn = Path::new(dir)
+        // TODO: static from given theme
+        let module_dir =
+            Path::new(file!()).parent().expect("can't get a directory");
+        let static_dir = vec![Path::new(module_dir)
             .join("theme")
             .join("static")
             .join("*")
-            .join("*");
-        let stc = ptrn
-            .to_str()
-            .ok_or_else(|| Error::new(ErrorKind::Other, "no pattern"))?;
+            .join("*")
+            .to_string_lossy()
+            .into_owned()];
 
-        let dst = config.build.get_target_dir();
-        let dst_dir = Path::new(&dst);
-        for s in get_entries(&stc).filter_map(Result::ok) {
+        for s in get_entries(static_dir) {
             if !s.is_file() {
                 continue;
             }
             let ext = s.extension().map_or_else(|| "", |e| e.to_str().unwrap());
             if ext == "css" {
-                let to = dst_dir.join("css");
+                let to = target_dir.join("css");
                 move_entry(&s, &to)?;
             }
         }

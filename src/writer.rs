@@ -7,6 +7,7 @@ use handlebars::Handlebars;
 use serde_json::Value;
 
 use crate::config::Config;
+use crate::fs::to_child_str_path;
 use crate::loader::load_data;
 use crate::metadata::{Author, EntryKey as Key, Entry, Metadata};
 
@@ -36,8 +37,9 @@ fn merge_authors<'a>(meta: &'a mut Value, c: &Config) -> &'a mut Value {
 /// puts an entry into file in the dst directory and returns its metadata.
 pub fn save_entry(
     buf: &PathBuf,
+    dst: &Path,
     reg: &Handlebars,
-    c: &Config,
+    cfg: &Config,
 ) -> Result<Entry, Error>
 {
     let mut e = load_data(&fs::read_to_string(buf)?);
@@ -46,18 +48,25 @@ pub fn save_entry(
         return Ok(empty);
     }
 
-    let stem = buf.file_stem().unwrap().to_string_lossy().into_owned();
-    let name = stem + ".html";
-    let path = Path::new(&c.build.get_target_dir()).join(&name);
+    // assign _path (a part of url) and slug
+    let name = if e.has(Key::Slug) {
+        e.get(Key::Slug).unwrap()
+    } else {
+        let stem = buf.file_stem().unwrap().to_string_lossy().into_owned();
+        stem + ".html"
+    };
+    let path = dst.join(&name);
 
+    e.add(Key::_Path, to_child_str_path(&path));
     e.add(Key::Slug, name);
-    let mut file = fs::File::create(path)?;
 
+    let mut file = fs::File::create(&path)?;
+    dbg!(&file);
     let mut meta = &mut json!({
-        "website": c.website.to_json(),
+        "website": cfg.website.to_json(),
         "article": e.to_json(),
     });
-    meta = merge_authors(meta, c);
+    meta = merge_authors(meta, cfg);
 
     let result = reg
         .render("layout", meta)
@@ -70,18 +79,18 @@ pub fn save_entry(
 pub fn make_index(
     dat: &mut Vec<Entry>,
     reg: &Handlebars,
-    c: &Config,
+    cfg: &Config,
 ) -> Result<(), Error>
 {
-    let dst_dir = c.build.get_target_dir();
+    let dst_dir = cfg.build.get_target_dir();
     let path = Path::new(&dst_dir).join("index.html");
     let mut file = fs::File::create(path)?;
 
     let mut meta = &mut json!({
-        "website": c.website.to_json(),
+        "website": cfg.website.to_json(),
         "headlines": json!(&dat),
     });
-    meta = merge_authors(meta, c);
+    meta = merge_authors(meta, cfg);
 
     let result = reg
         .render("layout", meta)

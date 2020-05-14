@@ -6,11 +6,9 @@ use crate::renderer::render;
 pub fn load_data(s: &str) -> Entry {
     let mut v = Entry::default();
 
-    v.add(Key::Content, "".to_string());
     v.add(Key::Date, "".to_string());
     v.add(Key::Description, "".to_string());
     v.add(Key::Lang, "en".to_string());
-    v.add(Key::Slug, "".to_string()); // auto
     v.add(Key::Title, "".to_string());
 
     let mut iter = s.lines();

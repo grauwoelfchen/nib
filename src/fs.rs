@@ -2,12 +2,25 @@
 #[cfg(not(test))]
 use std::fs;
 use std::io::Error;
+use std::path::{Path, PathBuf};
 
 use glob::glob;
 
-/// fetches given entries.
-pub fn get_entries(path: &str) -> glob::Paths {
-    glob(path).expect("failed to read glob pattern")
+/// fetch given entries.
+pub fn get_entries(paths: Vec<String>) -> Vec<PathBuf> {
+    let mut tmp: Vec<glob::Paths> = vec![];
+    for path in paths {
+        tmp.push(glob(&path).expect("failed to read path pattern"));
+    }
+    let mut buf: Vec<PathBuf> = vec![];
+    for t in tmp {
+        for e in t.filter_map(Result::ok) {
+            if !e.is_absolute() {
+                buf.push(e);
+            }
+        }
+    }
+    buf
 }
 
 /// clear generated files.
@@ -22,6 +35,22 @@ pub fn rem_results(path: &str) -> Result<(), Error> {
     Ok(())
 }
 
+// TODO: Name
+/// return string path which is ommited the most parent directory.
+pub fn to_child_str_path(path: &Path) -> String {
+    let mut prts = path.components();
+
+    // skip the most parent directory
+    prts.next();
+
+    // build pathbuf from components
+    let _path = prts.fold(PathBuf::new(), |mut acc, p| {
+        acc.push(p);
+        acc
+    });
+    _path.to_string_lossy().into_owned()
+}
+
 #[cfg(test)]
 mod test {
     use std::path::{Path, PathBuf};
@@ -34,18 +63,19 @@ mod test {
 
     #[test]
     fn test_get_entries_with_single_file_pattern() {
-        let path = file!();
-
-        let buf = get_entries(path).next().expect("next").unwrap();
+        let src = vec![file!().to_string()];
+        let ret = get_entries(src);
+        let buf = ret.iter().next().expect("next");
         assert_eq!(Path::new("src/fs.rs"), buf.as_path());
     }
 
     #[test]
     fn test_get_entries_with_glob_pattern() {
-        let ptrn = Path::new(file!()).parent().unwrap().join("fs.*");
-        let path = ptrn.as_os_str().to_str().unwrap();
+        let path = Path::new(file!()).parent().unwrap().join("fs.*");
 
-        let buf = get_entries(path).next().expect("next").unwrap();
+        let src = vec![path.as_os_str().to_string_lossy().into_owned()];
+        let ret = get_entries(src);
+        let buf = ret.iter().next().expect("next");
         assert_eq!(Path::new("src/fs.rs"), buf.as_path());
     }
 
@@ -53,5 +83,17 @@ mod test {
     fn test_rem_results() {
         let path = file!();
         assert!(rem_results(path).is_ok());
+    }
+
+    #[test]
+    fn test_to_child_str_path() {
+        let path = Path::new("foo/bar/baz");
+        assert_eq!(to_child_str_path(&path), "bar/baz");
+
+        let path = Path::new("foo/bar/baz/qux");
+        assert_eq!(to_child_str_path(&path), "bar/baz/qux");
+
+        let path = Path::new("/foo/bar/baz/qux");
+        assert_eq!(to_child_str_path(&path), "foo/bar/baz/qux");
     }
 }

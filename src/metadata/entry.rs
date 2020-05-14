@@ -19,6 +19,9 @@ pub enum EntryKey {
     Slug,
     Title,
     Unknown,
+
+    // auto derive
+    _Path,
 }
 
 impl Serialize for EntryKey {
@@ -57,6 +60,7 @@ impl fmt::Display for EntryKey {
             Self::Lang => write!(f, "lang"),
             Self::Slug => write!(f, "slug"),
             Self::Title => write!(f, "title"),
+            Self::_Path => write!(f, "_path"),
             _ => write!(f, "unknown"),
         }
     }
@@ -115,7 +119,8 @@ impl Metadata<EntryKey> for Entry {
     }
 
     fn has(&self, key: EntryKey) -> bool {
-        self._map.get(&key).is_some()
+        let v = self._map.get(&key);
+        v.is_some() && !v.unwrap().is_empty()
     }
 
     fn to_json(&self) -> Value {
