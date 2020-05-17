@@ -1,7 +1,10 @@
-Sun 17 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+Mon 18 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Bump version to 0.0.4
 	* Add Makefile into exclude
 	* Fix embedded default theme rendering
 	* Update style for default theme
+
+Sun 17 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Remove unnecessary CODEOWNERS
 
 Fri 15 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
