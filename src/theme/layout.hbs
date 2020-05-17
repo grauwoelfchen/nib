@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <title>{{# if article }}{{article.title}} - {{/if}}{{website.title}}</title>
   <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
   {{! TODO: stylesheet }}
 </head>
 <body class="{{website.theme}}">
@@ -22,7 +23,7 @@
         {{> _article ~}}
       </article>
       {{else}}
-        <div class="content">
+        <div id="content">
           {{#each headlines}}
               <article class="article">
                 {{> headline article=this ~}}

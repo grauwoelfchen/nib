@@ -11,10 +11,11 @@ use std::panic::{self, AssertUnwindSafe};
 use std::path::Path;
 use std::process;
 
+use libnib::include_static_file;
 use libnib::config::Config;
 use libnib::fs::{get_entries, rem_results, to_child_str_path};
 use libnib::registry::{add_escape_fn, del_escape_fn, init_registry};
-use libnib::writer::{make_index, move_entry, save_entry};
+use libnib::writer::{make_index, make_entry, write_entry};
 
 // TODO: refactor errors
 
@@ -31,7 +32,7 @@ fn cleanup(c: &Config) -> Result<(), Error> {
     let dir = c.build.get_target_dir();
     let dst_dir = Path::new(&dir);
     if dst_dir.exists() {
-        let ptrn = dst_dir.join("*.html");
+        let ptrn = dst_dir.join("**/*.html");
         let dst = ptrn
             .to_str()
             .ok_or_else(|| Error::new(ErrorKind::Other, "no pattern"))?;
@@ -88,37 +89,21 @@ fn main() -> Result<(), Error> {
                 if !dir.is_empty() {
                     let dst = target_dir.join(dir);
                     fs::create_dir_all(&dst)?;
-                    let info = save_entry(&e, &dst, &reg, &config)?;
+                    let info = make_entry(&e, &dst, &reg, &config)?;
                     dat.push(info);
                     continue;
                 }
             }
             // files which are put directly under the dst directory
-            let info = save_entry(&e, &target_dir, &reg, &config)?;
+            let info = make_entry(&e, &target_dir, &reg, &config)?;
             dat.push(info);
         }
         make_index(&mut dat, &reg, &config)?;
 
-        // TODO: static from given theme
-        let module_dir =
-            Path::new(file!()).parent().expect("can't get a directory");
-        let static_dir = vec![Path::new(module_dir)
-            .join("theme")
-            .join("static")
-            .join("*")
-            .join("*")
-            .to_string_lossy()
-            .into_owned()];
-
-        for s in get_entries(static_dir) {
-            if !s.is_file() {
-                continue;
-            }
-            let ext = s.extension().map_or_else(|| "", |e| e.to_str().unwrap());
-            if ext == "css" {
-                let to = target_dir.join("css");
-                move_entry(&s, &to)?;
-            }
+        // TODO: static files support for given theme
+        for (n, s) in include_static_file!("css/index.css", "robots.txt") {
+            let dst = target_dir.join(n);
+            write_entry(&s, &dst)?;
         }
         Ok(())
     });
