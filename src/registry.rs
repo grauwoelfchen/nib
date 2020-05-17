@@ -1,25 +1,20 @@
 use std::io::{Error, ErrorKind};
-use std::path::Path;
 
 use handlebars::{Handlebars, no_escape};
 
-const TMPL: [&str; 6] = [
-    "_article", "_footer", "_header", "_sidebar", "headline", "layout",
-];
+use crate::include_template_file;
 
 pub fn init_registry<'a>() -> Result<Handlebars<'a>, Error> {
     let mut reg = Handlebars::new();
-    // get this file's directory
-    let dir = Path::new(file!()).parent().expect("can't get a directory");
-    let thm = Path::new(dir).join("theme");
 
-    for n in TMPL.iter() {
-        reg.register_template_file(n, thm.join(format!("{}.hbs", n)))
-            .as_ref()
-            .map_err(|e| {
-                eprintln!("err: {}", e);
-                Error::new(ErrorKind::InvalidInput, "no such template file")
-            })?;
+    // TODO: support user defined template
+    for (n, s) in include_template_file!(
+        "_article", "_footer", "_header", "_sidebar", "headline", "layout"
+    ) {
+        reg.register_template_string(n, s).as_ref().map_err(|e| {
+            eprintln!("err: {}", e);
+            Error::new(ErrorKind::InvalidInput, "no such template file")
+        })?;
     }
     Ok(reg)
 }

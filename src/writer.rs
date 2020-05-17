@@ -11,13 +11,6 @@ use crate::fs::to_child_str_path;
 use crate::loader::load_data;
 use crate::metadata::{Author, EntryKey as Key, Entry, Metadata};
 
-/// copies file under dst directory.
-pub fn move_entry(buf: &PathBuf, dst: &Path) -> Result<(), Error> {
-    let to = dst.join(buf.file_name().unwrap());
-    fs::copy(buf.to_str().unwrap(), to)?;
-    Ok(())
-}
-
 fn merge_authors<'a>(meta: &'a mut Value, c: &Config) -> &'a mut Value {
     *meta.pointer_mut("/website/metadata/authors").unwrap() =
         json!(c.website.metadata.as_ref().map_or(
@@ -34,8 +27,8 @@ fn merge_authors<'a>(meta: &'a mut Value, c: &Config) -> &'a mut Value {
     meta
 }
 
-/// puts an entry into file in the dst directory and returns its metadata.
-pub fn save_entry(
+/// generates an entry into file in the dst directory and returns its metadata.
+pub fn make_entry(
     buf: &PathBuf,
     dst: &Path,
     reg: &Handlebars,
@@ -74,7 +67,7 @@ pub fn save_entry(
     Ok(e)
 }
 
-/// creates a index file into dst directory.
+/// generates a index file into dst directory.
 pub fn make_index(
     dat: &mut Vec<Entry>,
     reg: &Handlebars,
@@ -95,5 +88,11 @@ pub fn make_index(
         .render("layout", meta)
         .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
     file.write_all(result.as_bytes())?;
+    Ok(())
+}
+
+/// creates a file.
+pub fn write_entry(s: &str, dst: &Path) -> Result<(), Error> {
+    fs::write(dst, s)?;
     Ok(())
 }
