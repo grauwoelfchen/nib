@@ -26,13 +26,13 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 2rem;
+  margin-top: 1.01rem;
+  border-bottom: 1px solid #e4e4e4;
 }
 
 h2 {
-  margin-top: 1.64rem;
   font-size: 1.5rem;
-  padding-bottom: 0.18rem;
-  border-bottom: 1px solid #e4e4e4;
+  margin-top: 1.24rem;
 }
 
 h3 {
@@ -81,34 +81,20 @@ pre {
   font-family: Menlo, Monaco, "Courier New", monospace;
 }
 
-code {
-  padding: .25em .5em;
-  font-size: 85%;
-  color: #bf616a;
-  background-color: #f9f9f9;
-  border-radius: 3px;
-}
-
 pre {
-  display: block;
-  margin-top: 1.88rem;
-  margin-bottom: 1.90rem;
+  color: #f3f3f3;
+  background-color: #222222;
   border-radius: 0.168rem;
-  padding: 0;
+  display: block;
   font-size: .8rem;
   line-height: 1.4;
-  white-space: pre;
+  margin-bottom: 1.90rem;
+  margin-top: 1.88rem;
   overflow: auto;
+  padding: 0.26rem 0.48rem;
+  white-space: pre;
   word-break: break-all;
   word-wrap: break-word;
-  background-color: #f9f9f9;
-}
-
-pre.code {
-  padding: 0.49rem 0.633rem;
-  font-size: 100%;
-  color: #f3f3f3;
-  background: #222222;
 }
 
 blockquote {
@@ -217,7 +203,7 @@ body {
 .header {
   padding-top: 1rem;
   padding-bottom: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2.12rem;
 }
 
 /* footer */
@@ -286,8 +272,37 @@ body {
   font-size: 1.11em;
 }
 
+.sidebar-item p {
+  margin: 0 0 0.6rem 0;
+}
+
+.sidebar-item h1,
+.sidebar-item h2,
+.sidebar-item h3,
+.sidebar-item h4,
+.sidebar-item h5,
+.sidebar-item h6 {
+  font-size: 1.11em;
+  color: #f2f2f2;
+}
+
 .sidebar-item p:last-child {
   margin-bottom: 0;
+}
+
+.sidebar-item .author .name,
+.sidebar-item .author .email {
+  margin-top: 0.46rem;
+  margin-bottom: 0.12rem;
+}
+
+.sidebar-item .athuor .name .nick {
+  display: inline-block;
+  margin-left: 0.26rem;
+}
+
+.sidebar-item .author .bio {
+  margin: 0.55rem 0 0.69rem 0;
 }
 
 .sidebar-nav-item {
@@ -376,21 +391,42 @@ label[for="sidebar-checkbox"] {
   transform: translateX(18rem);
 }
 
-/* article */
-
-.article {
-  margin-bottom: 4em;
+.header h2.title {
+  color: #505050;
+  font-size: 1.26rem;
+  margin-bottom: 0;
+  margin-top: 0.23rem;
 }
 
-.title,
-.article .title {
+.title a {
+  color: #505050;
+  text-align: center;
+}
+
+.title a:hover {
+  color: #888888;
+}
+
+/* article */
+
+#content .article {
+  margin-bottom: 1.23rem;
+}
+
+#article.article {
+  margin-bottom: 4rem;
+}
+
+#content .date,
+#article.article .title {
   color: #303030;
   margin-top: 0;
 }
 
-.article .date {
+#content .date,
+#article.article .date {
   display: block;
-  margin-top: -.5rem;
+  margin-top: 0.5rem;
   margin-bottom: 1rem;
   color: #9a9a9a;
 }
