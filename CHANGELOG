@@ -1,3 +1,6 @@
+Sun 17 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Remove unnecessary CODEOWNERS
+
 Fri 15 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Bump version to 0.0.3
 	* Add nested directory support
