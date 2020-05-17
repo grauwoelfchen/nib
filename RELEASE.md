@@ -5,11 +5,33 @@ All notable changes belong to releases will be documented in this file.
 
 ## Unreleased changes
 
-[f1c07582...master](
-https://gitlab.com/grauwoelfchen/nib/-/compare/f1c07582...master)
+[v0.0.4...master](
+https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.4...master)
 
 
 ## Tags
+
+
+### 0.0.4
+
+Tag [v0.0.4](https://gitlab.com/grauwoelfchen/nib/-/tags/v0.0.4) has been
+released on `Mon, 18 May 2020`.
+
+#### Changes
+
+[v0.0.3...v0.0.4](
+https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.3...v0.0.4)
+
+* Bump version to 0.0.4
+* Add Makefile into exclude target
+* Fix default theme rendering (with embedded strings)
+* Improve style of default theme
+* Remove unnecessary CODEOWNERS
+
+#### Links
+
+* [crates.io](https://crates.io/crates/nib/0.0.4)
+* [docs.rs](https://docs.rs/crate/nib/0.0.4)
 
 
 ### 0.0.3
@@ -21,8 +43,8 @@ I commited a typo in a commit message which bumps the version as `0.0.2` :'(
 
 #### Changes
 
-[81ddea63...f1c07582](
-https://gitlab.com/grauwoelfchen/nib/-/compare/81ddea63...f1c07582)
+[v0.0.2...v0.0.3](
+https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.2...v0.0.3)
 
 * Add nested directory support (like blog/post/foo.rst)
 * Add RELEASE.md
@@ -42,8 +64,8 @@ released on `Mon, 11 May 2020`.
 
 #### Changes
 
-[73b44a63...81ddea63](
-https://gitlab.com/grauwoelfchen/nib/-/compare/73b44a63...81ddea63)
+[v0.0.1...v0.0.2](
+https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.1...v0.0.2)
 
 * Add `config.toml` file support
 * Fix sidebar template
@@ -61,8 +83,8 @@ released on `Mon, 01 May 2020`.
 
 #### Changes
 
-[ed7682f6...73b44a63](
-https://gitlab.com/grauwoelfchen/nib/-/compare/ed7682f6...73b44a63)
+[ed7682f6...v0.0.1](
+https://gitlab.com/grauwoelfchen/nib/-/compare/ed7682f6...v0.0.1)
 
 * Refactor `nslookup` and date arguments parsing
 
