@@ -61,7 +61,6 @@ pub fn save_entry(
     e.add(Key::Slug, name);
 
     let mut file = fs::File::create(&path)?;
-    dbg!(&file);
     let mut meta = &mut json!({
         "website": cfg.website.to_json(),
         "article": e.to_json(),
