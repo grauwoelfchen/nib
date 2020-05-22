@@ -8,6 +8,7 @@ mod renderer;
 
 pub mod config;
 pub mod fs;
+pub mod highlighter;
 pub mod loader;
 pub mod registry;
 pub mod writer;
