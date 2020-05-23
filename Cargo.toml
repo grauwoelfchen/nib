@@ -1,6 +1,6 @@
 [package]
 name = "nib"
-version = "0.0.4"
+version = "0.0.5"
 authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
 description = "A yet another static site generator"
 documentation = "https://gitlab.com/grauwoelfchen/nib"
