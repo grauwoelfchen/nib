@@ -7,9 +7,29 @@ All notable changes belong to releases will be documented in this file.
 
 * [nib-v0.0.6...master](
 https://gitlab.com/grauwoelfchen/nib/-/compare/nib-v0.0.6...master)
+* [nib-cli-v0.0.1...master](
+https://gitlab.com/grauwoelfchen/nib/-/compare/nib-cli-v0.0.1...master)
 
 
 ## Tags
+
+
+### nib-cli 0.0.1
+
+Tag [nib-cli-v0.0.1](https://gitlab.com/grauwoelfchen/nib/-/tags/nib-cli-v0.0.1)
+has been released on `Mon, 25 May 2020`.
+
+#### Changes
+
+[v0.0.5...nib-cli-v0.0.1](
+https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.5...nib-cli-v0.0.1)
+
+* Initial release
+
+#### Links
+
+* [crates.io](https://crates.io/crates/nib-cli/0.0.1)
+* [docs.rs](https://docs.rs/crate/nib-cli/0.0.1)
 
 
 ### nib 0.0.6
