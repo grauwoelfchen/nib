@@ -14,10 +14,30 @@ https://gitlab.com/grauwoelfchen/nib/-/compare/nib-cli-v0.0.1...master)
 ## Tags
 
 
+### nib-server 0.0.1
+
+Tag [nib-server-v0.0.1](
+https://gitlab.com/grauwoelfchen/nib/-/tags/nib-server-v0.0.1) has been
+released on `Mon, 25 May 2020`.
+
+#### Changes
+
+[v0.0.5...nib-server-v0.0.1](
+https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.5...nib-server-v0.0.1)
+
+* Initial release
+
+#### Links
+
+* [crates.io](https://crates.io/crates/nib-server/0.0.1)
+* [docs.rs](https://docs.rs/crate/nib-server/0.0.1)
+
+
 ### nib-cli 0.0.1
 
-Tag [nib-cli-v0.0.1](https://gitlab.com/grauwoelfchen/nib/-/tags/nib-cli-v0.0.1)
-has been released on `Mon, 25 May 2020`.
+Tag [nib-cli-v0.0.1](
+https://gitlab.com/grauwoelfchen/nib/-/tags/nib-cli-v0.0.1) has been released
+on `Mon, 25 May 2020`.
 
 #### Changes
 
@@ -34,8 +54,8 @@ https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.5...nib-cli-v0.0.1)
 
 ### nib 0.0.6
 
-Tag [nib-v0.0.6](https://gitlab.com/grauwoelfchen/nib/-/tags/nib-v0.0.6) has been
-released on `Mon, 25 May 2020`.
+Tag [nib-v0.0.6](https://gitlab.com/grauwoelfchen/nib/-/tags/nib-v0.0.6) has
+been released on `Mon, 25 May 2020`.
 
 #### Changes
 
