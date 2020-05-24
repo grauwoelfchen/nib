@@ -10,7 +10,6 @@ use glob::glob;
 pub fn get_entries(paths: Vec<String>) -> Vec<PathBuf> {
     let mut tmp: Vec<glob::Paths> = vec![];
     for path in paths {
-        dbg!(glob(&path).unwrap().count());
         tmp.push(glob(&path).expect("failed to read path pattern"));
     }
     let mut buf: Vec<PathBuf> = vec![];

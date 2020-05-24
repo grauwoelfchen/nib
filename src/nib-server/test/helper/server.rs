@@ -108,7 +108,6 @@ async fn response(req: Request<Body>) -> Result<Response<Body>> {
 async fn send_file(name: &str) -> Result<Response<Body>> {
     let file = fs::canonicalize(".").unwrap();
     let test = file.as_path().parent().unwrap().parent().unwrap();
-    dbg!(&test);
     let path = Path::new(test).join(DST_DIR).join(name);
 
     if let Ok(file) = File::open(path).await {
