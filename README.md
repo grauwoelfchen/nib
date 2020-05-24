@@ -2,8 +2,8 @@
 
 A yet another static site generator.
 
-There are 3 crates. To create own website, please take a look at [nib-cli](
-https://gitlab.com/grauwoelfchen/nib/-/tree/master/nib-cli).
+There are 3 crates `nib`, `nib-cli` and `nib-server`.
+To create own website, please take a look at [nib-cli](src/nib-cli).
 
 
 ## Guide
