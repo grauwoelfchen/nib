@@ -1,4 +1,5 @@
 use std::thread;
+use std::fs;
 use std::net::{SocketAddr, TcpStream};
 use std::path::Path;
 use std::sync::mpsc;
@@ -105,7 +106,9 @@ async fn response(req: Request<Body>) -> Result<Response<Body>> {
 
 // TODO: remove
 async fn send_file(name: &str) -> Result<Response<Body>> {
-    let test = Path::new(file!()).parent().unwrap().parent().unwrap();
+    let file = fs::canonicalize(".").unwrap();
+    let test = file.as_path().parent().unwrap().parent().unwrap();
+    dbg!(&test);
     let path = Path::new(test).join(DST_DIR).join(name);
 
     if let Ok(file) = File::open(path).await {

@@ -11,11 +11,11 @@ use std::panic::{self, AssertUnwindSafe};
 use std::path::Path;
 use std::process;
 
-use libnib::include_static_file;
-use libnib::config::Config;
-use libnib::fs::{get_entries, rem_results, to_child_str_path};
-use libnib::registry::{add_escape_fn, del_escape_fn, init_registry};
-use libnib::writer::{make_index, make_entry, write_entry};
+use nib::include_static_file;
+use nib::config::Config;
+use nib::fs::{get_entries, rem_results, to_child_str_path};
+use nib::registry::{add_escape_fn, del_escape_fn, init_registry};
+use nib::writer::{make_index, make_entry, write_entry};
 
 // TODO: refactor errors
 

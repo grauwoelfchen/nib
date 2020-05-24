@@ -10,6 +10,7 @@ use glob::glob;
 pub fn get_entries(paths: Vec<String>) -> Vec<PathBuf> {
     let mut tmp: Vec<glob::Paths> = vec![];
     for path in paths {
+        dbg!(glob(&path).unwrap().count());
         tmp.push(glob(&path).expect("failed to read path pattern"));
     }
     let mut buf: Vec<PathBuf> = vec![];
@@ -63,7 +64,8 @@ mod test {
 
     #[test]
     fn test_get_entries_with_single_file_pattern() {
-        let src = vec![file!().to_string()];
+        let src = vec!["src/fs.rs".to_string()];
+
         let ret = get_entries(src);
         let buf = ret.iter().next().expect("next");
         assert_eq!(Path::new("src/fs.rs"), buf.as_path());
@@ -71,9 +73,9 @@ mod test {
 
     #[test]
     fn test_get_entries_with_glob_pattern() {
-        let path = Path::new(file!()).parent().unwrap().join("fs.*");
-
+        let path = Path::new("src").join("fs.*");
         let src = vec![path.as_os_str().to_string_lossy().into_owned()];
+
         let ret = get_entries(src);
         let buf = ret.iter().next().expect("next");
         assert_eq!(Path::new("src/fs.rs"), buf.as_path());

@@ -612,21 +612,34 @@ dependencies = [
 name = "nib"
 version = "0.0.5"
 dependencies = [
- "cargo-husky",
  "document_tree",
- "futures",
  "glob",
  "handlebars",
- "hyper",
  "rst_parser",
  "rst_renderer",
  "serde",
  "serde_derive",
  "serde_json",
  "syntect",
+]
+
+[[package]]
+name = "nib-cli"
+version = "0.0.1"
+dependencies = [
+ "cargo-husky",
+ "nib",
+ "toml",
+]
+
+[[package]]
+name = "nib-server"
+version = "0.0.1"
+dependencies = [
+ "futures",
+ "hyper",
  "tokio",
  "tokio-util",
- "toml",
 ]
 
 [[package]]
