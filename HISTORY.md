@@ -1,4 +1,4 @@
-# Release
+# History
 
 All notable changes belong to releases will be documented in this file.
 
