@@ -4,6 +4,23 @@ A yet another static site generator.
 
 This is composed of three crates `nib`, `nib-cli` and `nib-server`.
 
+| name | crates.io | docs.rs | description |
+|:---|:---:|:---:|:---|
+| `nib` | [![crates.io][merit::nib]][crate::nib] | [![docs.rs][badge::nib]][doc::nib] | main library to assist making cli |
+| `nib-cli` | [![crates.io][merit::nib-cli]][crate::nib-cli] | - | cli application to generate static site |
+| `nib-server` | [![crates.io][merit::nib-server]][crate::nib-server] | - | local development server to host generated files |
+
+[merit::nib]: https://meritbadge.herokuapp.com/nib
+[merit::nib-cli]: https://meritbadge.herokuapp.com/nib-cli
+[merit::nib-server]: https://meritbadge.herokuapp.com/nib-server
+
+[crate::nib]: https://crates.io/crates/nib
+[crate::nib-cli]: https://crates.io/crates/nib-cli
+[crate::nib-server]: https://crates.io/crates/nib-server
+
+[doc::nib]: https://docs.rs/nib
+[badge::nib]: https://docs.rs/nib/badge.svg
+
 
 ## Guide
 
@@ -16,9 +33,11 @@ To create own website, please take a look at [nib-cli](src/nib-cli).
 
 ## Development
 
-This project is developed on [GitLab.com](https://gitlab.com/grauwoelfchen/nib)
-and mirrored on [GitHub.com](https://github.com/grauwoelfchen/nib) and [
-sourcehut](https://git.sr.ht/~grauwoelfchen/nib).
+This project is developed on [gitlab.com](https://gitlab.com/grauwoelfchen/nib),
+mirrored on [github.com](https://github.com/grauwoelfchen/nib) and also on [
+git.sr.ht](https://git.sr.ht/~grauwoelfchen/nib).
+
+Every reports and pull requests on anywhere are welcome ;)
 
 
 ## License
