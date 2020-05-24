@@ -1,6 +1,7 @@
-# Nib
+# Nib CLI
 
-A yet another static site generator.
+`nib-cli` is a command line utility to a yet another static site generator Nib.
+
 
 ## Usage
 
@@ -57,7 +58,7 @@ avatar = "https://www.gravatar.com/avatar/...?s=40"
 Foo is nice! # above blank line before content is required
 ```
 
-### Build
+### Generate
 
 Put your articles under a directory which is contained in `include` section in
 config file.
@@ -92,6 +93,14 @@ dst
     └── foo.html
 ```
 
-### Development
+
+## Development
 
 See `nib-server`.
+
+
+## License
+
+`Apache-2.0`
+
+See [LICENSE](https://gitlab.com/grauwoelfchen/nib/-/blob/master/LICENSE)
