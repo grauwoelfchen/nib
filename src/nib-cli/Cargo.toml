@@ -18,6 +18,7 @@ gitlab = { repository = "grauwoelfchen/nib", branch = "master" }
 
 [[bin]]
 name = "nib"
+doc = false
 path = "src/main.rs"
 
 [dependencies]
