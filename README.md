@@ -2,17 +2,28 @@
 
 A yet another static site generator.
 
-There are 3 crates `nib`, `nib-cli` and `nib-server`.
-To create own website, please take a look at [nib-cli](src/nib-cli).
+This is composed of three crates `nib`, `nib-cli` and `nib-server`.
 
 
 ## Guide
+
+To create own website, please take a look at [nib-cli](src/nib-cli).
 
 ```zsh
 % cargo install nib-cli
 ```
 
+
+## Development
+
+This project is developed on [GitLab.com](https://gitlab.com/grauwoelfchen/nib)
+and mirrored on [GitHub.com](https://github.com/grauwoelfchen/nib) and [
+sourcehut](https://git.sr.ht/~grauwoelfchen/nib).
+
+
 ## License
+
+`Apache-2.0`
 
 ```text
 Nib
