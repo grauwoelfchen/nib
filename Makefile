@@ -1,35 +1,35 @@
 # verify {{{
-verify\:check:  ## Check syntax [alias: check]
+verify\:check: # Check syntax [syn: check]
 	@cargo check --all --verbose
 .PHONY: verify\:check
 
-check: | verify\:check
+check: verify\:check
 .PHONY: check
 
-verify\:format:  ## Check format without changes [alias: verify:fmt, format, fmt]
+verify\:format: # Show format diff [syn: verify:fmt, format, fmt]
 	@cargo fmt --all -- --check
 .PHONY: verify\:format
 
-verify\:fmt: | verify\:format
+verify\:fmt: verify\:format
 .PHONY: verify\:fmt
 
-format: | verify\:format
+format: verify\:format
 .PHONY: format
 
-fmt: | verify\:format
+fmt: verify\:format
 .PHONY: fmt
 
-verify\:lint:  ## Check coding-style [alias: lint]
+verify\:lint: # Show suggestions relates to hygiene [syn: lint]
 	@cargo clippy --all-targets
 .PHONY: verify\:lint
 
-lint: | verify\:lint
+lint: verify\:lint
 .PHONY: lint
 
-verify\:all: | verify\:check verify\:format verify\:lint  ## Run all verify targets [alias: verify]
+verify\:all: verify\:check verify\:format verify\:lint # Run all [syn: verify]
 .PHONY: verify\:all
 
-verify: | verify\:all
+verify: verify\:all
 .PHONY: verify
 # }}}
 
@@ -46,60 +46,90 @@ test\:all:
 	@cargo test --lib --bins --test integration
 .PHONY: test\:all
 
-test: | test\:all
+test: test\:all
 .PHONY: test
 # }}}
 
 # build {{{
-build\:debug:  ## Run debug build [alias: build]
+build\:debug: # Run debug build [syn: build]
 	cargo build
 .PHONY: build\:debug
 
-build\:debug\:server:  ## Build a development server [alias: build:server]
+build\:debug\:cli: # Build only cli package [syn: build:server]
 	cargo build --bin nib-server
-.PHONY: build\:release
+	.PHONY: build\:debug\:cli
 
-build\:server: | build\:debug\:server
+build\:cli: build\:debug\:cli
+.PHONY: build\:cli
+
+build\:debug\:lib: # Build only lib package [syn: build:lib]
+	cargo build --lib
+.PHONY: build\:debug
+
+build\:lib: build\:debug\:lib
+.PHONY: build\:lib
+
+build\:debug\:server: # Build only server package [syn: build:server]
+	cargo build --bin nib-server
+.PHONY: build\:debug\:server
+
+build\:server: build\:debug\:server
 .PHONY: build\:server
 
-build: | build\:debug
+build: build\:debug
 .PHONY: build
 
-build\:release:  ## Create release build
+build\:release: # Create release build
 	cargo build --release
 .PHONY: build\:release
 
-build\:release\:server:  ## Build a development server with release mode
+build\:release\:cli: # Build only cli package with release mode
+	cargo build --bin cli --release
+.PHONY: build\:release\:cli
+
+build\:release\:lib: # Build only lib package with release mode
+	cargo build --lib --release
+.PHONY: build\:release\:lib
+
+build\:release\:server: # Build only server package with release mode
 	cargo build --bin server --release
-	.PHONY: build\:release\:server
+.PHONY: build\:release\:server
 # }}}
 
-# server {{{
+# watch {{{
+watch\:lib:
+	cargo watch --exec 'run --package nib' --delay 0.3
+.PHONY: watch\:lib
+
+watch\:cli:
+	cargo watch --exec 'run --package nib-cli' --delay 0.3
+.PHONY: watch\:cli
+
 watch\:server:
-	cargo build --exec 'run --bin server' --delay 0.3
+	cargo watch --exec 'run --package nib-server' --delay 0.3
 .PHONY: watch\:server
 # }}}
 
 # other {{{
-clean:  ## Tidy up
+clean: # Remove artifacts
 	@cargo clean
 .PHONY: clean
 
-package:  ## Create package
-	@cargo package
+package\:%: # Create a package of nib, nib-cli or nib-server
+	@cargo package --manifest-path src/$(subst package:,,$@)/Cargo.toml
 .PHONY: package
 
-install:  ## Install built binary into the directory same with cargo
-	@cargo install --path . --force
+install\:%: # Install nib-cli or nib-server into the dir same with cargo
+	@cargo install --path src/$(subst package:,,$@) --force
 .PHONY: install
 
-help:  ## Display this message
+help: # Display this message
 	@grep --extended-regexp '^[0-9a-z\:\\\%]+: ' $(MAKEFILE_LIST) | \
-		grep --extended-regexp '  ## ' | \
-		sed --expression='s/\(\s|\(\s[-_0-9a-z\:\\]*\)*\)  /  /g' | \
+		grep --extended-regexp ' # ' | \
+		sed --expression='s/\([a-z0-9\-\:\ ]*\): \([a-z0-9\-\:\ ]*\) #/\1: #/g' | \
 		tr --delete \\\\ | \
-		awk 'BEGIN {FS = ":  ## "}; \
-			{printf "\033[38;05;222m%-13s\033[0m %s\n", $$1, $$2}' | \
+		awk 'BEGIN {FS = ": # "}; \
+			{printf "\033[38;05;222m%-20s\033[0m %s\n", $$1, $$2}' | \
 		sort
 .PHONY: help
 # }}}

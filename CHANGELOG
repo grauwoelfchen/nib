@@ -1,3 +1,9 @@
+Mon 25 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Introduce workspace for nib, nib-cli and nib-server
+
+Sun 24 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Bump version to 0.0.5
+
 Sat 23 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Add syntax highlight support for code block
 	* Refactor HTML rendiring

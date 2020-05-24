@@ -1,77 +1,9 @@
-[package]
-name = "nib"
-version = "0.0.4"
-authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
-description = "A yet another static site generator"
-documentation = "https://gitlab.com/grauwoelfchen/nib"
-repository = "https://gitlab.com/grauwoelfchen/nib"
-homepage = "https://gitlab.com/grauwoelfchen/nib"
-readme = "README.md"
-keywords = ["cli", "text"]
-categories = ["command-line-utilities", "text-processing"]
-license = "Apache-2.0"
-exclude = [
-  "test/*",
-  ".cargo-husky/*",
-  "/.clippy.toml",
-  "/.rustfmt.toml",
-  "/.gitlab-ci.yml",
-  "/.env.ci.sample",
-  "Makefile",
+[workspace]
+members = [
+  "src/nib",
+  "src/nib-cli",
+  "src/nib-server",
 ]
-edition = "2018"
-
-[badges]
-gitlab = { repository = "grauwoelfchen/nib", branch = "master" }
-
-[lib]
-name = "libnib"
-path = "src/lib.rs"
-
-[[bin]]
-name = "nib"
-path = "src/main.rs"
-
-[[bin]]
-name = "nib-server"
-path = "src/bin/server.rs"
-
-[[test]]
-name = "integration"
-path = "test/test.rs"
 
 [profile.release]
 panic = "abort"
-
-[dependencies]
-document_tree = "0.3.0"
-futures = "0.3"
-glob = "0.3.0"
-handlebars = "3.0.1"
-hyper = "0.13.*"
-rst_parser = "0.3.1"
-rst_renderer = "0.3.1"
-serde = "1.0"
-serde_derive = "1.0"
-serde_json = "1.0"
-toml = "0.5"
-
-[dependencies.syntect]
-version = "4.1"
-default-features = false
-features = ["default-fancy"]
-
-[dependencies.tokio]
-version = "0.2.*"
-default-features = false
-features = ["fs", "macros", "stream"]
-
-[dependencies.tokio-util]
-version = "0.3.1"
-default-features = false
-features = ["codec"]
-
-[dev-dependencies.cargo-husky]
-version = "1"
-default-features = false
-features = ["user-hooks"]

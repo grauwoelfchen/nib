@@ -1,0 +1,36 @@
+[package]
+name = "nib"
+version = "0.0.5"
+authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
+description = "A yet another static site generator"
+documentation = "https://gitlab.com/grauwoelfchen/nib"
+repository = "https://gitlab.com/grauwoelfchen/nib"
+homepage = "https://gitlab.com/grauwoelfchen/nib"
+readme = "README.md"
+keywords = ["cli", "text"]
+categories = ["command-line-interface", "text-processing"]
+license = "Apache-2.0"
+exclude = ["test/*"]
+edition = "2018"
+
+[badges]
+gitlab = { repository = "grauwoelfchen/nib", branch = "master" }
+
+[lib]
+name = "nib"
+path = "src/lib.rs"
+
+[dependencies]
+document_tree = "0.3.0"
+glob = "0.3.0"
+handlebars = "3.0.1"
+rst_parser = "0.3.1"
+rst_renderer = "0.3.1"
+serde = "1.0"
+serde_derive = "1.0"
+serde_json = "1.0"
+
+[dependencies.syntect]
+version = "4.1"
+default-features = false
+features = ["default-fancy"]

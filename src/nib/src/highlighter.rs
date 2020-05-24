@@ -14,7 +14,6 @@ impl Highlighter {
     pub fn new() -> Self {
         let ss = SyntaxSet::load_defaults_newlines();
         let ts = ThemeSet::load_defaults();
-        dbg!(&ts.themes);
         Self { ss, ts }
     }
 

@@ -1,0 +1,39 @@
+[package]
+name = "nib-server"
+version = "0.0.1"
+authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
+description = "A local server for a yet another static site generator Nib"
+documentation = "https://gitlab.com/grauwoelfchen/nib"
+repository = "https://gitlab.com/grauwoelfchen/nib"
+homepage = "https://gitlab.com/grauwoelfchen/nib"
+readme = "README.md"
+keywords = ["server", "text"]
+categories = ["text-processing", "web-programming::http-server"]
+license = "Apache-2.0"
+exclude = ["test/*"]
+edition = "2018"
+
+[badges]
+gitlab = { repository = "grauwoelfchen/nib", branch = "master" }
+
+[[bin]]
+name = "nib-server"
+path = "src/main.rs"
+
+[[test]]
+name = "integration"
+path = "test/test.rs"
+
+[dependencies]
+futures = "0.3"
+hyper = "0.13.*"
+
+[dependencies.tokio]
+version = "0.2.*"
+default-features = false
+features = ["fs", "macros", "stream"]
+
+[dependencies.tokio-util]
+version = "0.3.1"
+default-features = false
+features = ["codec"]

@@ -11,6 +11,25 @@ https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.4...master)
 
 ## Tags
 
+### 0.0.5
+
+Tag [v0.0.5](https://gitlab.com/grauwoelfchen/nib/-/tags/v0.0.5) has been
+released on `Sun, 24 May 2020`.
+
+#### Changes
+
+[v0.0.4...v0.0.5](
+https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.4...v0.0.5)
+
+* Add syntax highlight support by using `syntect` for code block
+* Set default color theme as `base16-eighties.dark`
+* Refactor HTML rendiring
+
+#### Links
+
+* [crates.io](https://crates.io/crates/nib/0.0.5)
+* [docs.rs](https://docs.rs/crate/nib/0.0.5)
+
 
 ### 0.0.4
 
@@ -22,7 +41,6 @@ released on `Mon, 18 May 2020`.
 [v0.0.3...v0.0.4](
 https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.3...v0.0.4)
 
-* Bump version to 0.0.4
 * Add Makefile into exclude target
 * Fix default theme rendering (with embedded strings)
 * Improve style of default theme

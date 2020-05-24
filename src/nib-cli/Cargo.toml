@@ -1,0 +1,30 @@
+[package]
+name = "nib-cli"
+version = "0.0.1"
+authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
+description = "A cli for a yet another static site generator Nib"
+documentation = "https://gitlab.com/grauwoelfchen/nib"
+repository = "https://gitlab.com/grauwoelfchen/nib"
+homepage = "https://gitlab.com/grauwoelfchen/nib"
+readme = "README.md"
+keywords = ["cli", "text"]
+categories = ["command-line-utilities", "text-processing"]
+license = "Apache-2.0"
+exclude = ["test/*"]
+edition = "2018"
+
+[badges]
+gitlab = { repository = "grauwoelfchen/nib", branch = "master" }
+
+[[bin]]
+name = "nib"
+path = "src/main.rs"
+
+[dependencies]
+nib = { path = "../nib", version = "0.0.5" }
+toml = "0.5"
+
+[dev-dependencies.cargo-husky]
+version = "1"
+default-features = false
+features = ["user-hooks"]
