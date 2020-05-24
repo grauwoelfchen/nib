@@ -5,13 +5,33 @@ All notable changes belong to releases will be documented in this file.
 
 ## Unreleased changes
 
-[v0.0.4...master](
-https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.4...master)
+* [nib:nib-v0.0.6...master](
+https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.6...master)
 
 
 ## Tags
 
-### 0.0.5
+
+### nib 0.0.6
+
+Tag [v0.0.6](https://gitlab.com/grauwoelfchen/nib/-/tags/nib-v0.0.6) has been
+released on `Mon, 25 May 2020`.
+
+#### Changes
+
+[v0.0.5...nib-v0.0.6](
+https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.5...nib-v0.0.6)
+
+* Rename RELEASE.md to HISTORY.md
+* Introduce workspace (separate nib into 3 crates: nib, nib-cli and nib-server)
+
+#### Links
+
+* [crates.io](https://crates.io/crates/nib/0.0.6)
+* [docs.rs](https://docs.rs/crate/nib/0.0.6)
+
+
+### nib 0.0.5
 
 Tag [v0.0.5](https://gitlab.com/grauwoelfchen/nib/-/tags/v0.0.5) has been
 released on `Sun, 24 May 2020`.
@@ -31,7 +51,7 @@ https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.4...v0.0.5)
 * [docs.rs](https://docs.rs/crate/nib/0.0.5)
 
 
-### 0.0.4
+### nib 0.0.4
 
 Tag [v0.0.4](https://gitlab.com/grauwoelfchen/nib/-/tags/v0.0.4) has been
 released on `Mon, 18 May 2020`.
@@ -52,7 +72,7 @@ https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.3...v0.0.4)
 * [docs.rs](https://docs.rs/crate/nib/0.0.4)
 
 
-### 0.0.3
+### nib 0.0.3
 
 Tag [v0.0.3](https://gitlab.com/grauwoelfchen/nib/-/tags/v0.0.3) has been
 released on `Fri, 15 May 2020`.
@@ -75,7 +95,7 @@ https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.2...v0.0.3)
 * [docs.rs](https://docs.rs/crate/nib/0.0.3)
 
 
-### 0.0.2
+### nib 0.0.2
 
 Tag [v0.0.2](https://gitlab.com/grauwoelfchen/nib/-/tags/v0.0.2) has been
 released on `Mon, 11 May 2020`.
@@ -94,7 +114,7 @@ https://gitlab.com/grauwoelfchen/nib/-/compare/v0.0.1...v0.0.2)
 * [docs.rs](https://docs.rs/crate/nib/0.0.2)
 
 
-### 0.0.1
+### nib 0.0.1
 
 Tag [v0.0.1](https://gitlab.com/grauwoelfchen/nib/-/tags/v0.0.1) has been
 released on `Mon, 01 May 2020`.
