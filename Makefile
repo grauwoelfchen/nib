@@ -90,15 +90,15 @@ build\:release: # Build packages with release mode
 .PHONY: build\:release
 
 build\:release\:cli: # Build only cli package with release mode
-	cargo build --bin cli --release
+	cargo build --package nib-cli --bin nib --release
 .PHONY: build\:release\:cli
 
 build\:release\:lib: # Build only lib package with release mode
-	cargo build --lib --release
+	cargo build --package nib --lib --release
 .PHONY: build\:release\:lib
 
 build\:release\:server: # Build only server package with release mode
-	cargo build --bin server --release
+	cargo build --package nib-server --bin nib-server --release
 .PHONY: build\:release\:server
 # }}}
 
