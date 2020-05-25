@@ -1,10 +1,16 @@
 # verify {{{
-verify\:check: # Check syntax [syn: check]
+verify\:error: # Check error [syn: verify:err, error, err]
 	@cargo check --all --verbose
-.PHONY: verify\:check
+.PHONY: verify\:error
 
-check: verify\:check
-.PHONY: check
+verify\:err: verify\:error
+.PHONY: verify\:err
+
+error: verify\:error
+.PHONY: error
+
+err: verify\:error
+.PHONY: err
 
 verify\:format: # Show format diff [syn: verify:fmt, format, fmt]
 	@cargo fmt --all -- --check
@@ -26,7 +32,7 @@ verify\:lint: # Show suggestions relates to hygiene [syn: lint]
 lint: verify\:lint
 .PHONY: lint
 
-verify\:all: verify\:check verify\:format verify\:lint # Run all [syn: verify]
+verify\:all: verify\:error verify\:format verify\:lint # Run all [syn: verify]
 .PHONY: verify\:all
 
 verify: verify\:all
@@ -51,9 +57,12 @@ test: test\:all
 # }}}
 
 # build {{{
-build\:debug: # Run debug build [syn: build]
-	cargo build
+build\:debug: # Run packages [syn: build]
+	cargo build --workspace
 .PHONY: build\:debug
+
+build: build\:debug
+.PHONY: build
 
 build\:debug\:cli: # Build only cli package [syn: build:server]
 	cargo build --bin nib-server
@@ -76,11 +85,8 @@ build\:debug\:server: # Build only server package [syn: build:server]
 build\:server: build\:debug\:server
 .PHONY: build\:server
 
-build: build\:debug
-.PHONY: build
-
-build\:release: # Create release build
-	cargo build --release
+build\:release: # Build packages with release mode
+	cargo build --workspace --release
 .PHONY: build\:release
 
 build\:release\:cli: # Build only cli package with release mode
