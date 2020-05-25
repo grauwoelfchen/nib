@@ -4,7 +4,7 @@ stages:
   - build
 
 .vet-tools: &vet-tools
-  image: grauwoelfchen/rust-vet-tools:stable
+  image: grauwoelfchen/rust-vet-tools:nightly
   except:
     - tags
 
@@ -53,7 +53,22 @@ test:
     - master
     - merge_requests
 
-build:
+build-nightly:
+  stage: build
+  image: grauwoelfchen/rust:nightly
+  before_script:
+    - rustc --version
+    - cargo --version
+    - mkdir -p .git/hooks
+  script:
+    - make build:debug
+  cache:
+    untracked: true
+  only:
+    - master
+    - merge_requests
+
+build-stable:
   stage: build
   image: grauwoelfchen/rust:stable
   before_script:
@@ -68,7 +83,21 @@ build:
     - master
     - merge_requests
 
-release:
+build-nightly-release:
+  stage: build
+  image: grauwoelfchen/rust:nightly
+  before_script:
+    - rustc --version
+    - cargo --version
+    - mkdir -p .git/hooks
+  script:
+    - make build:release
+  cache:
+    untracked: true
+  only:
+    - master
+
+build-stable-release:
   stage: build
   image: grauwoelfchen/rust:stable
   before_script:
