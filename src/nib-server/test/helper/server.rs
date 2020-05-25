@@ -1,7 +1,6 @@
 use std::thread;
 use std::fs;
 use std::net::{SocketAddr, TcpStream};
-use std::path::Path;
 use std::sync::mpsc;
 
 use futures::channel::oneshot;
@@ -106,9 +105,8 @@ async fn response(req: Request<Body>) -> Result<Response<Body>> {
 
 // TODO: remove
 async fn send_file(name: &str) -> Result<Response<Body>> {
-    let file = fs::canonicalize(".").unwrap();
-    let test = file.as_path().parent().unwrap().parent().unwrap();
-    let path = Path::new(test).join(DST_DIR).join(name);
+    let package_root = fs::canonicalize(".").unwrap();
+    let path = package_root.as_path().join("test").join(DST_DIR).join(name);
 
     if let Ok(file) = File::open(path).await {
         let stream = FramedRead::new(file, BytesCodec::new());
