@@ -1,3 +1,7 @@
+Thu 28 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Remove unnecessary templates from theme dir (nib-cli)
+	* Remove unnecessary assets from theme dir (nib)
+
 Mon 25 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Setup CI (.gitlab-ci.yml)
 	* Fix same binary name issue on generate doc (omit doc for nib-cli)
