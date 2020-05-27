@@ -1,5 +1,5 @@
 # verify {{{
-verify\:error: # Check error [syn: verify:err, error, err]
+verify\:error: # Check error [alias: verify:err, error, err]
 	@cargo check --all --verbose
 .PHONY: verify\:error
 
@@ -12,7 +12,7 @@ error: verify\:error
 err: verify\:error
 .PHONY: err
 
-verify\:format: # Show format diff [syn: verify:fmt, format, fmt]
+verify\:format: # Show format diff [alias: verify:fmt, format, fmt]
 	@cargo fmt --all -- --check
 .PHONY: verify\:format
 
@@ -25,14 +25,14 @@ format: verify\:format
 fmt: verify\:format
 .PHONY: fmt
 
-verify\:lint: # Show suggestions relates to hygiene [syn: lint]
+verify\:lint: # Show suggestions relates to hygiene [alias: lint]
 	@cargo clippy --all-targets
 .PHONY: verify\:lint
 
 lint: verify\:lint
 .PHONY: lint
 
-verify\:all: verify\:error verify\:format verify\:lint # Run all [syn: verify]
+verify\:all: err fmt lint # Run all [alias: verify]
 .PHONY: verify\:all
 
 verify: verify\:all
@@ -57,28 +57,28 @@ test: test\:all
 # }}}
 
 # build {{{
-build\:debug: # Run packages [syn: build]
+build\:debug: # Run packages [alias: build]
 	cargo build --workspace
 .PHONY: build\:debug
 
 build: build\:debug
 .PHONY: build
 
-build\:debug\:cli: # Build only cli package [syn: build:server]
+build\:debug\:cli: # Build only cli package [alias: build:cli]
 	cargo build --bin nib-server
-	.PHONY: build\:debug\:cli
+.PHONY: build\:debug\:cli
 
 build\:cli: build\:debug\:cli
 .PHONY: build\:cli
 
-build\:debug\:lib: # Build only lib package [syn: build:lib]
+build\:debug\:lib: # Build only lib package [alias: build:lib]
 	cargo build --lib
-.PHONY: build\:debug
+.PHONY: build\:debug\:lib
 
 build\:lib: build\:debug\:lib
 .PHONY: build\:lib
 
-build\:debug\:server: # Build only server package [syn: build:server]
+build\:debug\:server: # Build only server package [alias: build:server]
 	cargo build --bin nib-server
 .PHONY: build\:debug\:server
 
@@ -126,7 +126,7 @@ package\:%: # Create a package of nib, nib-cli or nib-server
 .PHONY: package
 
 install\:%: # Install nib-cli or nib-server into the dir same with cargo
-	@cargo install --path src/$(subst package:,,$@) --force
+	@cargo install --path src/$(subst install:,,$@) --force
 .PHONY: install
 
 help: # Display this message
