@@ -81,6 +81,21 @@ pre {
   font-family: Menlo, Monaco, "Courier New", monospace;
 }
 
+code {
+  background: #f2f2f2;
+  border: 1px solid #d7d7d7;
+  border-radius: 0.16rem;
+  color: #515151;
+  font-family: monospace;
+  font-size: .82rem;
+  font-weight: normal;
+  line-height: 1.16em;
+  padding-bottom: 0.09rem;
+  padding-left: 0.18rem;
+  padding-right: 0.18rem;
+  padding-top: 0.09rem;
+}
+
 pre {
   color: #d3d0c8;
   background-color: #2d2d2d;
@@ -417,9 +432,9 @@ label[for="sidebar-checkbox"] {
   margin-bottom: 4rem;
 }
 
-#content .date,
+#content .title,
 #article.article .title {
-  color: #303030;
+  color: #393030;
   margin-top: 0;
 }
 
@@ -428,5 +443,6 @@ label[for="sidebar-checkbox"] {
   display: block;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
-  color: #9a9a9a;
+  color: #797979;
+  font-size: 91%;
 }
