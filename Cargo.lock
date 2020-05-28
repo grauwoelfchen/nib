@@ -611,7 +611,7 @@ dependencies = [
 
 [[package]]
 name = "nib"
-version = "0.0.6"
+version = "0.0.7"
 dependencies = [
  "document_tree",
  "glob",
@@ -626,7 +626,7 @@ dependencies = [
 
 [[package]]
 name = "nib-cli"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "cargo-husky",
  "nib",

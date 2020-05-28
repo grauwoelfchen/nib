@@ -1,4 +1,5 @@
 Fri 29 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Bump version nib 0.0.7
 	* Sort (reverse) entries on index.html (nib)
 
 Thu 28 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
@@ -6,6 +7,7 @@ Thu 28 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Remove unnecessary assets from theme dir (nib)
 
 Mon 25 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Bump version nib 0.0.6, nib-cli 0.0.1 and nib-server 0.0.1
 	* Setup CI (.gitlab-ci.yml)
 	* Fix same binary name issue on generate doc (omit doc for nib-cli)
 	* Rename RELEASE.md HISTORY.md (due to naming similarity issue to README.md)

@@ -1,6 +1,6 @@
 [package]
 name = "nib-cli"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
 description = "A cli for a yet another static site generator Nib"
 documentation = "https://gitlab.com/grauwoelfchen/nib"
@@ -22,7 +22,7 @@ doc = false
 path = "src/main.rs"
 
 [dependencies]
-nib = { path = "../nib", version = "0.0.6" }
+nib = { path = "../nib", version = "0.0.7" }
 toml = "0.5"
 
 [dev-dependencies.cargo-husky]

@@ -14,6 +14,34 @@ https://gitlab.com/grauwoelfchen/nib/-/compare/nib-cli-v0.0.1...master)
 ## Tags
 
 
+### nib-cli 0.0.2
+
+Tag [nib-cli-v0.0.2](
+https://gitlab.com/grauwoelfchen/nib/-/tags/nib-cli-v0.0.2) has been released
+on `Fri, 29 May 2020`.
+
+#### Changes
+
+[nib-cli-v0.0.1...nib-cli-v0.0.2](
+https://gitlab.com/grauwoelfchen/nib/-/compare/nib-cli-v0.0.1...nib-cli-v0.0.2)
+
+* Remove unnecessary templates from theme dir
+
+
+### nib 0.0.7
+
+Tag [nib-v0.0.7](https://gitlab.com/grauwoelfchen/nib/-/tags/nib-v0.0.7) has
+been released on `Fri, 29 May 2020`.
+
+#### Changes
+
+[nib-v0.0.6...nib-v0.0.7](
+https://gitlab.com/grauwoelfchen/nib/-/compare/nib-v0.0.6...nib-v0.0.7)
+
+* Sort (reverse) entries on index.html
+* Remove unnecessary assets from theme dir
+
+
 ### nib-server 0.0.1
 
 Tag [nib-server-v0.0.1](
