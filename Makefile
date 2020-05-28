@@ -65,7 +65,7 @@ build: build\:debug
 .PHONY: build
 
 build\:debug\:cli: # Build only cli package [alias: build:cli]
-	cargo build --bin nib-server
+	cargo build --bin nib
 .PHONY: build\:debug\:cli
 
 build\:cli: build\:debug\:cli
