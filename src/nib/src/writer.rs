@@ -78,6 +78,9 @@ pub fn make_index(
     let path = Path::new(&dst_dir).join("index.html");
     let mut file = fs::File::create(path)?;
 
+    // reverse sorting
+    dat.sort_by(|a, b| b.cmp(a));
+
     let mut meta = &mut json!({
         "website": cfg.website.to_json(),
         "headlines": json!(&dat),

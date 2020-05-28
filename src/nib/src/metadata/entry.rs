@@ -90,6 +90,26 @@ pub struct Entry {
     _map: HashMap<EntryKey, String>,
 }
 
+impl PartialEq for Entry {
+    fn eq(&self, other: &Self) -> bool {
+        self.to_json() == other.to_json()
+    }
+}
+
+impl Eq for Entry {}
+
+impl PartialOrd for Entry {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for Entry {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.get(EntryKey::Date).cmp(&other.get(EntryKey::Date))
+    }
+}
+
 impl Serialize for Entry {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where S: Serializer {
@@ -125,5 +145,33 @@ impl Metadata<EntryKey> for Entry {
 
     fn to_json(&self) -> Value {
         json!(self._map)
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_entry_comparison() {
+        let mut first = Entry::new();
+        first.add(EntryKey::Slug, "a".to_owned());
+        first.add(EntryKey::Date, "2020-05-29T02:14:00+02:00".to_owned());
+
+        let mut second = Entry::new();
+        second.add(EntryKey::Slug, "b".to_owned());
+        second.add(EntryKey::Date, "2020-02-28T00:33:01+02:00".to_owned());
+
+        let mut v = vec![first, second];
+
+        v.sort();
+        let dat: Vec<_> =
+            v.iter().map(|e| e.get(EntryKey::Slug).unwrap()).collect();
+        assert_eq!(vec!["b", "a"], dat);
+
+        v.sort_by(|a, b| b.cmp(a));
+        let dat: Vec<_> =
+            v.iter().map(|e| e.get(EntryKey::Slug).unwrap()).collect();
+        assert_eq!(vec!["a", "b"], dat);
     }
 }
