@@ -1,45 +1,44 @@
-# verify {{{
-verify\:error: # Check error [alias: verify:err, error, err]
+# vet
+vet\:error: # Check error [synonym: vet:err, error, err]
 	@cargo check --all --verbose
-.PHONY: verify\:error
+.PHONY: vet\:error
 
-verify\:err: verify\:error
-.PHONY: verify\:err
+vet\:err: vet\:error
+.PHONY: vet\:err
 
-error: verify\:error
+error: vet\:error
 .PHONY: error
 
-err: verify\:error
+err: vet\:error
 .PHONY: err
 
-verify\:format: # Show format diff [alias: verify:fmt, format, fmt]
+vet\:format: # Show format diff [synonym: vet:fmt, format, fmt]
 	@cargo fmt --all -- --check
-.PHONY: verify\:format
+.PHONY: vet\:format
 
-verify\:fmt: verify\:format
-.PHONY: verify\:fmt
+vet\:fmt: vet\:format
+.PHONY: vet\:fmt
 
-format: verify\:format
+format: vet\:format
 .PHONY: format
 
-fmt: verify\:format
+fmt: vet\:format
 .PHONY: fmt
 
-verify\:lint: # Show suggestions relates to hygiene [alias: lint]
+vet\:lint: # Show suggestions relates to hygiene [synonym: lint]
 	@cargo clippy --all-targets
-.PHONY: verify\:lint
+.PHONY: vet\:lint
 
-lint: verify\:lint
+lint: vet\:lint
 .PHONY: lint
 
-verify\:all: err fmt lint # Run all [alias: verify]
-.PHONY: verify\:all
+vet\:all: err fmt lint # Run all vet targets
+.PHONY: vet\:all
 
-verify: verify\:all
-.PHONY: verify
-# }}}
+vet: vet\:check # Alias for vet:check
+.PHONY: vet
 
-# test {{{
+# test
 test\:unit:
 	@cargo test --lib --bins
 .PHONY: test\:unit
@@ -54,31 +53,30 @@ test\:all:
 
 test: test\:all
 .PHONY: test
-# }}}
 
-# build {{{
-build\:debug: # Run packages [alias: build]
+# build
+build\:debug: # Run packages [synonym: build]
 	cargo build --workspace
 .PHONY: build\:debug
 
 build: build\:debug
 .PHONY: build
 
-build\:debug\:cli: # Build only cli package [alias: build:cli]
+build\:debug\:cli: # Build only cli package [synonym: build:cli]
 	cargo build --bin nib
 .PHONY: build\:debug\:cli
 
 build\:cli: build\:debug\:cli
 .PHONY: build\:cli
 
-build\:debug\:lib: # Build only lib package [alias: build:lib]
+build\:debug\:lib: # Build only lib package [synonym: build:lib]
 	cargo build --lib
 .PHONY: build\:debug\:lib
 
 build\:lib: build\:debug\:lib
 .PHONY: build\:lib
 
-build\:debug\:server: # Build only server package [alias: build:server]
+build\:debug\:server: # Build only server package [synonym: build:server]
 	cargo build --bin nib-server
 .PHONY: build\:debug\:server
 
@@ -100,9 +98,8 @@ build\:release\:lib: # Build only lib package with release mode
 build\:release\:server: # Build only server package with release mode
 	cargo build --package nib-server --bin nib-server --release
 .PHONY: build\:release\:server
-# }}}
 
-# watch {{{
+# utility
 watch\:lib:
 	cargo watch --exec 'run --package nib' --delay 0.3
 .PHONY: watch\:lib
@@ -114,9 +111,7 @@ watch\:cli:
 watch\:server:
 	cargo watch --exec 'run --package nib-server' --delay 0.3
 .PHONY: watch\:server
-# }}}
 
-# other {{{
 clean: # Remove artifacts
 	@cargo clean
 .PHONY: clean
@@ -130,15 +125,16 @@ install\:%: # Install nib-cli or nib-server into the dir same with cargo
 .PHONY: install
 
 help: # Display this message
-	@grep --extended-regexp '^[0-9a-z\:\\\%]+: ' $(MAKEFILE_LIST) | \
+	@set -uo pipefail; \
+	grep --extended-regexp '^[0-9a-z\:\\\%]+: ' \
+		$(firstword $(MAKEFILE_LIST)) | \
 		grep --extended-regexp ' # ' | \
 		sed --expression='s/\([a-z0-9\-\:\ ]*\): \([a-z0-9\-\:\ ]*\) #/\1: #/g' | \
 		tr --delete \\\\ | \
 		awk 'BEGIN {FS = ": # "}; \
-			{printf "\033[38;05;222m%-20s\033[0m %s\n", $$1, $$2}' | \
+			{printf "\033[38;05;222m%-21s\033[0m %s\n", $$1, $$2}' | \
 		sort
 .PHONY: help
-# }}}
 
-.DEFAULT_GOAL = verify\:all
-default: verify\:all
+.DEFAULT_GOAL = vet\:all
+default: vet\:all

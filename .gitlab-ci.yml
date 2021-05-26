@@ -1,5 +1,5 @@
 stages:
-  - verify
+  - vet
   - test
   - build
 
@@ -9,17 +9,17 @@ stages:
     - tags
 
 err:
-  stage: verify
+  stage: vet
   <<: *vet-tools
   before_script:
     - rustc --version
     - cargo --version
     - mkdir -p .git/hooks
   script:
-    - make verify:error
+    - make vet:error
 
 fmt:
-  stage: verify
+  stage: vet
   <<: *vet-tools
   before_script:
     - rustc --version
@@ -27,10 +27,10 @@ fmt:
     - cargo fmt --version
     - mkdir -p .git/hooks
   script:
-    - make verify:format
+    - make vet:format
 
 lint:
-  stage: verify
+  stage: vet
   <<: *vet-tools
   before_script:
     - rustc --version
@@ -38,7 +38,7 @@ lint:
     - cargo clippy --version
     - mkdir -p .git/hooks
   script:
-    - make verify:lint
+    - make vet:lint
 
 test:
   stage: test
