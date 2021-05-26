@@ -48,8 +48,8 @@ impl Serve {
                     .expect("build");
 
                 rt.block_on(async move {
-                    let make_service = make_service_fn(|_| {
-                        async { Ok::<_, Error>(service_fn(response)) }
+                    let make_service = make_service_fn(|_| async {
+                        Ok::<_, Error>(service_fn(response))
                     });
                     // NOTE: `:0` means any port in available
                     let addr = "127.0.0.1:0".parse().unwrap();
@@ -97,7 +97,7 @@ async fn response(req: Request<Body>) -> Result<Response<Body>> {
     match (req.method(), path) {
         (&Method::GET, "/") | (&Method::GET, "/index.html") => {
             send_file(INDEX).await
-        },
+        }
         (&Method::GET, path) => send_file(&path[1..]).await,
         _ => not_found(),
     }

@@ -1,3 +1,6 @@
+Thu 27 May 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Fix coding style for Rust stable
+
 Fri 29 May 2020 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Bump version nib 0.0.7
 	* Sort (reverse) entries on index.html (nib)

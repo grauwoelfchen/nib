@@ -28,7 +28,7 @@ async fn response(req: Request<Body>) -> Result<Response<Body>> {
     match (req.method(), path) {
         (&Method::GET, "/") | (&Method::GET, "/index.html") => {
             send_file(INDEX).await
-        },
+        }
         (&Method::GET, path) => send_file(&path[1..]).await,
         _ => not_found(),
     }

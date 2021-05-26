@@ -20,7 +20,9 @@ use nib::writer::{make_index, make_entry, write_entry};
 // TODO: refactor errors
 
 fn run<B>(block: B) -> Result<(), Error>
-where B: FnOnce() -> Result<(), Error> {
+where
+    B: FnOnce() -> Result<(), Error>,
+{
     let result = panic::catch_unwind(AssertUnwindSafe(|| block()));
     if result.is_err() {
         return Err(Error::new(ErrorKind::Other, "error"));

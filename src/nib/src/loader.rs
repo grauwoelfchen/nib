@@ -25,7 +25,7 @@ pub fn load_data(s: &str) -> Entry {
                         v.add(key, p[1].trim_start().to_owned());
                     }
                 }
-            },
+            }
             _ => break,
         }
     }

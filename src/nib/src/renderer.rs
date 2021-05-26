@@ -20,7 +20,7 @@ pub fn render(s: &str) -> Result<String, Error> {
         Err(e) => {
             eprintln!("err: {}", e);
             Err(Error::new(ErrorKind::InvalidInput, e))
-        },
+        }
         Ok(mut doc) => render_html_with_highlight(&mut doc),
     }
 }
@@ -134,7 +134,7 @@ fn hightlight_doc(doc: &mut Document) {
                         }
                     }
                     md.children[i] = (*e).clone();
-                },
+                }
                 SS::BodyElement(ref be) => {
                     if let BE::LiteralBlock(ref lb) = **be {
                         let rw = highlight(lb, &hi);
@@ -142,7 +142,7 @@ fn hightlight_doc(doc: &mut Document) {
                             SS::BodyElement(Box::new(BE::Raw(Box::new(rw))));
                         md.children[i] = SSE::SubStructure(Box::new(nb));
                     }
-                },
+                }
                 _ => (),
             }
         }
