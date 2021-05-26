@@ -1,0 +1,11 @@
+{
+  "baseBranches": ["trunk"],
+  "enabledManagers": ["cargo"],
+  "branchPrefix": "dep-",
+  "draftPR": true,
+  "labels": ["dependency"],
+  "timezone": "UTC",
+  "schedule": [
+    "before 8:00pm"
+  ]
+}
