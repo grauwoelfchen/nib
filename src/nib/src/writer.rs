@@ -33,8 +33,7 @@ pub fn make_entry(
     dst: &Path,
     reg: &Handlebars,
     cfg: &Config,
-) -> Result<Entry, Error>
-{
+) -> Result<Entry, Error> {
     let mut e = load_data(&fs::read_to_string(buf)?);
     if !e.has(Key::Content) {
         let empty = Entry::new();
@@ -72,8 +71,7 @@ pub fn make_index(
     dat: &mut Vec<Entry>,
     reg: &Handlebars,
     cfg: &Config,
-) -> Result<(), Error>
-{
+) -> Result<(), Error> {
     let dst_dir = cfg.build.get_target_dir();
     let path = Path::new(&dst_dir).join("index.html");
     let mut file = fs::File::create(path)?;

@@ -26,7 +26,9 @@ pub enum EntryKey {
 
 impl Serialize for EntryKey {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where S: Serializer {
+    where
+        S: Serializer,
+    {
         serializer.serialize_str(&self.to_string())
     }
 }
@@ -112,7 +114,9 @@ impl Ord for Entry {
 
 impl Serialize for Entry {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where S: Serializer {
+    where
+        S: Serializer,
+    {
         let map: BTreeMap<_, _> = self._map.iter().collect();
         map.serialize(serializer)
     }

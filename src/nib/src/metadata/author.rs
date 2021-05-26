@@ -20,7 +20,9 @@ pub enum AuthorKey {
 
 impl Serialize for AuthorKey {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where S: Serializer {
+    where
+        S: Serializer,
+    {
         serializer.serialize_str(&self.to_string())
     }
 }
@@ -83,7 +85,9 @@ pub struct Author {
 
 impl Serialize for Author {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where S: Serializer {
+    where
+        S: Serializer,
+    {
         let map: BTreeMap<_, _> = self._map.iter().collect();
         map.serialize(serializer)
     }

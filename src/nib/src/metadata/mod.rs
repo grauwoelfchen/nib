@@ -12,7 +12,8 @@ pub use entry::{EntryKey, Entry, KEY_PREFIX, KEY_SUFFIX};
 use serde::Serialize;
 
 pub trait Metadata<T>
-where T: Serialize + fmt::Display + Hash
+where
+    T: Serialize + fmt::Display + Hash,
 {
     fn new() -> Self;
     fn add(&mut self, key: T, value: String) -> Option<String>;
