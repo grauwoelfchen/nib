@@ -33,11 +33,11 @@ To create own website, please take a look at [nib-cli](src/nib-cli).
 
 ## Development
 
-This project is developed on [gitlab.com](https://gitlab.com/grauwoelfchen/nib),
-mirrored on [github.com](https://github.com/grauwoelfchen/nib) and also on [
+This project is developed on [Gitlab.com](https://gitlab.com/grauwoelfchen/nib),
+mirrored on [Github](https://github.com/grauwoelfchen/nib) and also [
 git.sr.ht](https://git.sr.ht/~grauwoelfchen/nib).
 
-Every reports and pull requests on anywhere are welcome ;)
+Every issue and pull request on anywhere above is very welcome ;)
 
 
 ## License
@@ -46,7 +46,7 @@ Every reports and pull requests on anywhere are welcome ;)
 
 ```text
 Nib
-Copyright 2020 Yasuhiro Яша Asaka
+Copyright 2020-2021 Yasuhiro Яша Asaka
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
