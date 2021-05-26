@@ -86,7 +86,7 @@ fn highlight(lb: &LiteralBlock, hi: &Highlighter) -> Raw {
     };
 
     let default_ext = &"txt".to_string();
-    let ext = mc.classes.first().unwrap_or_else(|| default_ext);
+    let ext = mc.classes.first().unwrap_or(default_ext);
 
     let mut txt = "".to_string();
     for t in mb.children() {

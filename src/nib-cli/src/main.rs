@@ -103,6 +103,7 @@ fn main() -> Result<(), Error> {
         make_index(&mut dat, &reg, &config)?;
 
         // TODO: static files support for given theme
+        #[allow(clippy::vec_init_then_push)]
         for (n, s) in include_static_file!("css/index.css", "robots.txt") {
             let dst = target_dir.join(n);
             write_entry(&s, &dst)?;

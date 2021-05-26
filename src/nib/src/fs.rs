@@ -66,7 +66,7 @@ mod test {
         let src = vec!["src/fs.rs".to_string()];
 
         let ret = get_entries(src);
-        let buf = ret.iter().next().expect("next");
+        let buf = ret.get(0).expect("next");
         assert_eq!(Path::new("src/fs.rs"), buf.as_path());
     }
 
@@ -76,7 +76,7 @@ mod test {
         let src = vec![path.as_os_str().to_string_lossy().into_owned()];
 
         let ret = get_entries(src);
-        let buf = ret.iter().next().expect("next");
+        let buf = ret.get(0).expect("next");
         assert_eq!(Path::new("src/fs.rs"), buf.as_path());
     }
 

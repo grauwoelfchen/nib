@@ -8,6 +8,7 @@ pub fn init_registry<'a>() -> Result<Handlebars<'a>, Error> {
     let mut reg = Handlebars::new();
 
     // TODO: support user defined template
+    #[allow(clippy::vec_init_then_push)]
     for (n, s) in include_template_file!(
         "_article", "_footer", "_header", "_sidebar", "headline", "layout"
     ) {

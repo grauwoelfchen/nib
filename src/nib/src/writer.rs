@@ -1,7 +1,7 @@
 //!
 use std::fs;
 use std::io::{Error, ErrorKind, Write};
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 use handlebars::Handlebars;
 use serde_json::Value;
@@ -29,7 +29,7 @@ fn merge_authors<'a>(meta: &'a mut Value, c: &Config) -> &'a mut Value {
 
 /// generates an entry into file in the dst directory and returns its metadata.
 pub fn make_entry(
-    buf: &PathBuf,
+    buf: &Path,
     dst: &Path,
     reg: &Handlebars,
     cfg: &Config,
