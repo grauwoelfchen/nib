@@ -34,6 +34,6 @@ default-features = false
 features = ["fs", "macros", "stream"]
 
 [dependencies.tokio-util]
-version = "0.3.1"
+version = "0.6.7"
 default-features = false
 features = ["codec"]
