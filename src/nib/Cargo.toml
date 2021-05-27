@@ -23,7 +23,7 @@ path = "src/lib.rs"
 [dependencies]
 document_tree = "0.3.0"
 glob = "0.3.0"
-handlebars = "3.0.1"
+handlebars = "4.0.0"
 rst_parser = "0.3.1"
 rst_renderer = "0.3.1"
 serde = "1.0"
