@@ -29,7 +29,7 @@ futures = "0.3"
 hyper = "0.13.*"
 
 [dependencies.tokio]
-version = "0.2.*"
+version = "0.3.*"
 default-features = false
 features = ["fs", "macros", "stream"]
 
