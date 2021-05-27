@@ -173,6 +173,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "document_tree"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "018530fdab9f8e4f196bdc4e4d420222cb83b25d392b12e5aaab2201647d85e0"
+dependencies = [
+ "failure",
+ "regex",
+ "serde",
+ "serde_derive",
+ "url",
+]
+
+[[package]]
 name = "error-chain"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -613,7 +626,7 @@ dependencies = [
 name = "nib"
 version = "0.0.7"
 dependencies = [
- "document_tree",
+ "document_tree 0.4.0",
  "glob",
  "handlebars",
  "rst_parser",
@@ -835,7 +848,7 @@ version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "14e92f0746ae9be19240e18fdb0eadd1ed295974fd58aac65cb48e6403a2eed7"
 dependencies = [
- "document_tree",
+ "document_tree 0.3.0",
  "failure",
  "pest",
  "pest_derive",
@@ -847,7 +860,7 @@ version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1c49ab2df921927695685688a00acdfbbafb529d1d05ef741ecdee9f79d157ed"
 dependencies = [
- "document_tree",
+ "document_tree 0.3.0",
  "failure",
  "serde-xml-rs",
  "serde_json",
