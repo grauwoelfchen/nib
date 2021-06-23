@@ -22,7 +22,7 @@ doc = false
 path = "src/main.rs"
 
 [dependencies]
-nib = "0.0.7"
+nib = "0.0.8"
 toml = "0.5"
 
 [dev-dependencies.cargo-husky]
