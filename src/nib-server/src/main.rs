@@ -1,6 +1,7 @@
 use std::path::Path;
 
-use hyper::{Body, Error, Method, Request, Response, Result, Server, StatusCode};
+use hyper::{Body, Error, Method, Request, Response, Result, StatusCode};
+use hyper::server::Server;
 use hyper::service::{make_service_fn, service_fn};
 use tokio::fs::File;
 use tokio_util::codec::{BytesCodec, FramedRead};

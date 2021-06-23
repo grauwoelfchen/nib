@@ -40,10 +40,8 @@ impl Serve {
         let thrd = thread::Builder::new()
             .name(name)
             .spawn(move || {
-                let mut rt = runtime::Builder::new()
-                    .enable_io()
-                    .enable_time()
-                    .basic_scheduler()
+                let rt = runtime::Builder::new_current_thread()
+                    .enable_all()
                     .build()
                     .expect("build");
 

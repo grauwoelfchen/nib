@@ -26,14 +26,20 @@ path = "test/test.rs"
 
 [dependencies]
 futures = "0.3"
-hyper = "0.13.*"
+
+[dependencies.hyper]
+version = "0.14.*"
+default-features = false
+# https://docs.rs/hyper/latest/hyper/index.html#optional-features
+features = ["http1", "runtime", "server", "stream"]
 
 [dependencies.tokio]
-version = "0.2.*"
+version = "1.7.*"
 default-features = false
-features = ["fs", "macros", "stream"]
+# https://docs.rs/tokio/latest/tokio/index.html#feature-flags
+features = ["fs", "macros", "rt", "rt-multi-thread"]
 
 [dependencies.tokio-util]
-version = "0.3.1"
+version = "0.6.7"
 default-features = false
 features = ["codec"]
