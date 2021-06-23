@@ -7,13 +7,31 @@ All notable changes belong to releases will be documented in this file.
 
 * [nib-v0.0.8...trunk](
 https://gitlab.com/grauwoelfchen/nib/-/compare/nib-v0.0.8...trunk)
-* [nib-cli-v0.0.2...trunk](
-https://gitlab.com/grauwoelfchen/nib/-/compare/nib-cli-v0.0.2...trunk)
+* [nib-cli-v0.0.3...trunk](
+https://gitlab.com/grauwoelfchen/nib/-/compare/nib-cli-v0.0.3...trunk)
 * [nib-serverv0.0.1...trunk](
 https://gitlab.com/grauwoelfchen/nib/-/compare/nib-server-v0.0.1...trunk)
 
 
 ## Tags
+
+### nib-cli 0.0.3
+
+Tag [nib-cli-v0.0.3](
+https://gitlab.com/grauwoelfchen/nib/-/tags/nib-cli-v0.0.3) has been released
+on `Wed, 24 Jun 2021`.
+
+#### Changes
+
+[nib-cli-v0.0.2...nib-cli-v0.0.3](
+https://gitlab.com/grauwoelfchen/nib/-/compare/nib-cli-v0.0.2...nib-cli-v0.0.3)
+
+* Update nib to `v0.0.8`
+
+#### Links
+
+* [crates.io](https://crates.io/crates/nib-cli/0.0.3)
+
 
 ### nib 0.0.8
 

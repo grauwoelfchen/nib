@@ -598,7 +598,7 @@ dependencies = [
 
 [[package]]
 name = "nib-cli"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "cargo-husky",
  "nib 0.0.8 (registry+https://github.com/rust-lang/crates.io-index)",
