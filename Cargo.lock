@@ -175,6 +175,19 @@ dependencies = [
 
 [[package]]
 name = "document_tree"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c39e9bbec7b3320275c22a2dc720c01f43361e309ac0c5da8a03635236c40c22"
+dependencies = [
+ "failure",
+ "regex",
+ "serde",
+ "serde_derive",
+ "url",
+]
+
+[[package]]
+name = "document_tree"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "018530fdab9f8e4f196bdc4e4d420222cb83b25d392b12e5aaab2201647d85e0"
@@ -366,6 +379,20 @@ name = "glob"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9b919933a397b79c37e33b77bb2aa3dc8eb6e165ad809e58ff75bc7db2e34574"
+
+[[package]]
+name = "handlebars"
+version = "3.5.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4498fc115fa7d34de968184e473529abb40eeb6be8bc5f7faba3d08c316cb3e3"
+dependencies = [
+ "log",
+ "pest",
+ "pest_derive",
+ "quick-error",
+ "serde",
+ "serde_json",
+]
 
 [[package]]
 name = "handlebars"
@@ -567,12 +594,29 @@ dependencies = [
 [[package]]
 name = "nib"
 version = "0.0.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "865cbca7a6eaa085bd9dca5d5c0f6b6073e91bfc2b4905eb7dcb8592282a6d09"
 dependencies = [
- "document_tree",
+ "document_tree 0.3.0",
  "glob",
- "handlebars",
- "rst_parser",
- "rst_renderer",
+ "handlebars 3.5.5",
+ "rst_parser 0.3.2",
+ "rst_renderer 0.3.1",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "syntect",
+]
+
+[[package]]
+name = "nib"
+version = "0.0.8"
+dependencies = [
+ "document_tree 0.4.0",
+ "glob",
+ "handlebars 4.0.1",
+ "rst_parser 0.4.0",
+ "rst_renderer 0.4.0",
  "serde",
  "serde_derive",
  "serde_json",
@@ -584,7 +628,7 @@ name = "nib-cli"
 version = "0.0.2"
 dependencies = [
  "cargo-husky",
- "nib",
+ "nib 0.0.7",
  "toml",
 ]
 
@@ -805,14 +849,38 @@ checksum = "7fe5bd57d1d7414c6b5ed48563a2c855d995ff777729dcd91c369ec7fea395ae"
 
 [[package]]
 name = "rst_parser"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2d27a91cb706ad1e42c886a7db88f45e51b8921d07691bb4253d8bac85273a75"
+dependencies = [
+ "document_tree 0.3.0",
+ "failure",
+ "pest",
+ "pest_derive",
+]
+
+[[package]]
+name = "rst_parser"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d17bab4d5d74e0ec6d96f438cae821506d05f56ffe54f6f0a181cc139272fc80"
 dependencies = [
- "document_tree",
+ "document_tree 0.4.0",
  "failure",
  "pest",
  "pest_derive",
+]
+
+[[package]]
+name = "rst_renderer"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1c49ab2df921927695685688a00acdfbbafb529d1d05ef741ecdee9f79d157ed"
+dependencies = [
+ "document_tree 0.3.0",
+ "failure",
+ "serde-xml-rs",
+ "serde_json",
 ]
 
 [[package]]
@@ -821,7 +889,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "280c2b35ffdb112dbf4a927597abb7288071f03f7d9f14dd9fea8c0781af4e80"
 dependencies = [
- "document_tree",
+ "document_tree 0.4.0",
  "failure",
  "serde-xml-rs",
  "serde_json",

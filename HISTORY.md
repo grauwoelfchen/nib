@@ -5,8 +5,8 @@ All notable changes belong to releases will be documented in this file.
 
 ## Unreleased changes
 
-* [nib-v0.0.6...trunk](
-https://gitlab.com/grauwoelfchen/nib/-/compare/nib-v0.0.6...trunk)
+* [nib-v0.0.8...trunk](
+https://gitlab.com/grauwoelfchen/nib/-/compare/nib-v0.0.8...trunk)
 * [nib-cli-v0.0.2...trunk](
 https://gitlab.com/grauwoelfchen/nib/-/compare/nib-cli-v0.0.2...trunk)
 * [nib-serverv0.0.1...trunk](
@@ -14,6 +14,28 @@ https://gitlab.com/grauwoelfchen/nib/-/compare/nib-server-v0.0.1...trunk)
 
 
 ## Tags
+
+### nib 0.0.8
+
+Tag [nib-v0.0.8](
+https://gitlab.com/grauwoelfchen/nib/-/tags/nib-v0.0.8) has been released
+on `Wed, 24 Jun 2021`.
+
+#### Changes
+
+[nib-v0.0.7...nib-v0.0.8](
+https://gitlab.com/grauwoelfchen/nib/-/compare/nib-v0.0.7...nib-v0.0.8)
+
+* Update document_tree and rst_{parser,renderer} to `v0.4.0`
+* Update handlebars to `v4.0.1`
+* Update syntect `v4.5`
+* Enable Rennovate
+* Fix coding stlye for stable Rust (2018)
+
+#### Links
+
+* [crates.io](https://crates.io/crates/nib/0.0.8)
+
 
 ### nib-cli 0.0.2
 
