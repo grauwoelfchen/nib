@@ -1,3 +1,6 @@
+Thu 24 Jun 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Update tokio v1.7.x and hyper to v0.14.x (nib-server)
+
 Thu 27 May 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Fix coding style for Rust stable
 
