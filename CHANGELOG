@@ -1,4 +1,5 @@
 Thu 24 Jun 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Release nib-server v0.0.2
 	* Release nib-cli v0.0.3
 	* Release nib v0.0.8
 	* Update tokio v1.7.x and hyper to v0.14.x (nib-server)

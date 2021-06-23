@@ -1,6 +1,6 @@
 [package]
 name = "nib-server"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>"]
 description = "A local server for a yet another static site generator Nib"
 documentation = "https://gitlab.com/grauwoelfchen/nib"
