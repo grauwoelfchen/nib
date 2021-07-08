@@ -17,3 +17,20 @@ Please take a look at `nib-cli` or `nib-server`.
 ### Example
 
 TODO
+
+
+## Development
+
+```zsh
+% cd /path/to/repo
+% make build:debug:server
+% ./target/debug/nib-server
+```
+
+```zsh
+% cd /path/to/repo
+% rm -fr src/**/target
+% rm -fr dst/*
+% make build:debug::cli
+% ./target/debug/nib
+```

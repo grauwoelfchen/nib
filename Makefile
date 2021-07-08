@@ -43,11 +43,15 @@ test\:unit:
 	@cargo test --lib --bins
 .PHONY: test\:unit
 
+test\:doc:
+	@cargo test --doc
+.PHONY: test\:doc
+
 test\:integration:
 	@cargo test --test integration
 .PHONY: test\:integration
 
-test\:all:
+test\:all: test\:doc
 	@cargo test --lib --bins --test integration
 .PHONY: test\:all
 

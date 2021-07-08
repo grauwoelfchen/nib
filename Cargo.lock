@@ -580,28 +580,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "nib"
-version = "0.0.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e74ee81ad35d134b481bbca2c740252a1b54c8438f75c2c652cc35c8286ea8b5"
-dependencies = [
- "document_tree",
- "glob",
- "handlebars",
- "rst_parser",
- "rst_renderer",
- "serde",
- "serde_derive",
- "serde_json",
- "syntect",
-]
-
-[[package]]
 name = "nib-cli"
 version = "0.0.3"
 dependencies = [
  "cargo-husky",
- "nib 0.0.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "nib",
  "toml",
 ]
 

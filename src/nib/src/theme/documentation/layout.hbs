@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{website.lang}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="{{website.description}}">
+  <meta name="viewport" content="width=device-width">
+  <title>{{# if article }}{{article.title}} - {{/if}}{{website.title}}</title>
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  {{! TODO: stylesheet }}
+</head>
+<body class="{{website.theme}}">
+  <a id="sidebar-anchor" href="#article"></a>
+  <input id="sidebar-checkbox" type="checkbox">
+  {{> _sidebar ~}}
+  <div class="wrapper">
+    <div class="container">
+      {{#if article}}
+      <article id="article" class="article">
+        {{> _article ~}}
+      </article>
+      {{/if}}
+    </div>
+  </div>
+  <label for="sidebar-checkbox"></label>
+  {{! TODO: javascript }}
+</body>
+</html>

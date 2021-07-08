@@ -30,6 +30,11 @@ To create own website, please take a look at [nib-cli](src/nib-cli).
 % cargo install nib-cli
 ```
 
+## Theme
+
+* blog (default)
+* documentation
+
 
 ## Development
 
@@ -38,6 +43,11 @@ mirrored on [Github](https://github.com/grauwoelfchen/nib) and also [
 git.sr.ht](https://git.sr.ht/~grauwoelfchen/nib).
 
 Every issue and pull request on anywhere above is very welcome ;)
+
+
+## Release
+
+Check `nib`'s version in '`src/nib-cli/Cargo.toml` before release.
 
 
 ## License
