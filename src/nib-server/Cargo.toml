@@ -34,7 +34,7 @@ default-features = false
 features = ["http1", "runtime", "server", "stream"]
 
 [dependencies.tokio]
-version = "1.7.*"
+version = "1.8.*"
 default-features = false
 # https://docs.rs/tokio/latest/tokio/index.html#feature-flags
 features = ["fs", "macros", "rt", "rt-multi-thread"]
