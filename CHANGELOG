@@ -1,3 +1,8 @@
+Fri 09 Jul 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Add doc tests for internal macros (Run make test:doc run make test:all)
+	* Move assets files (static) to nib crate
+	* Add documentation theme support
+
 Thu 24 Jun 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Release nib-server v0.0.2
 	* Release nib-cli v0.0.3

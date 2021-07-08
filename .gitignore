@@ -1,5 +1,7 @@
-/dst
 /blog
+/documentation
+
+/dst
 /config.toml
 
 target

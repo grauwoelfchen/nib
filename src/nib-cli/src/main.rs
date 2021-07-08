@@ -11,11 +11,10 @@ use std::panic::{self, AssertUnwindSafe};
 use std::path::Path;
 use std::process;
 
-use nib::include_static_file;
 use nib::config::Config;
 use nib::fs::{get_entries, rem_results, to_child_str_path};
 use nib::registry::{add_escape_fn, del_escape_fn, init_registry};
-use nib::writer::{make_index, make_entry, write_entry};
+use nib::writer::{copy_assets, make_entry, write_entry, write_index};
 
 // TODO: refactor errors
 
@@ -100,14 +99,17 @@ fn main() -> Result<(), Error> {
             let info = make_entry(&e, &target_dir, &reg, &config)?;
             dat.push(info);
         }
-        make_index(&mut dat, &reg, &config)?;
+
+        for d in &dat {
+            let dst = target_dir.join(d.get_path());
+            write_entry(&d.get_body(), &dst)?;
+        }
+        write_index(&mut dat, &reg, &config)?;
 
         // TODO: static files support for given theme
-        #[allow(clippy::vec_init_then_push)]
-        for (n, s) in include_static_file!("css/index.css", "robots.txt") {
-            let dst = target_dir.join(n);
-            write_entry(&s, &dst)?;
-        }
+        let theme = "blog";
+        copy_assets(theme, target_dir)?;
+
         Ok(())
     });
 

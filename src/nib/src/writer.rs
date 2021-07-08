@@ -6,6 +6,7 @@ use std::path::Path;
 use handlebars::Handlebars;
 use serde_json::Value;
 
+use crate::include_static_file;
 use crate::config::Config;
 use crate::fs::to_child_str_path;
 use crate::loader::load_data;
@@ -52,7 +53,6 @@ pub fn make_entry(
     e.add(Key::_Path, to_child_str_path(&path));
     e.add(Key::Slug, name);
 
-    let mut file = fs::File::create(&path)?;
     let mut meta = &mut json!({
         "website": cfg.website.to_json(),
         "article": e.to_json(),
@@ -62,12 +62,28 @@ pub fn make_entry(
     let result = reg
         .render("layout", meta)
         .map_err(|e| Error::new(ErrorKind::InvalidInput, e))?;
-    file.write_all(result.as_bytes())?;
+
+    e.add(Key::_Body, result);
     Ok(e)
 }
 
-/// generates a index file into dst directory.
-pub fn make_index(
+/// copies asset files to dst directory.
+pub fn copy_assets(theme: &str, dir: &Path) -> Result<(), Error> {
+    #[allow(clippy::vec_init_then_push)]
+    for (n, s) in match theme {
+        "documentation" => {
+            include_static_file!("documentation", "css/index.css", "robots.txt")
+        }
+        _ => include_static_file!("blog", "css/index.css", "robots.txt"),
+    } {
+        let dst = dir.join(n);
+        write_entry(&s, &dst)?;
+    }
+    Ok(())
+}
+
+/// writes the index file into dst directory.
+pub fn write_index(
     dat: &mut Vec<Entry>,
     reg: &Handlebars,
     cfg: &Config,

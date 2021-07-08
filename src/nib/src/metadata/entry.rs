@@ -22,6 +22,7 @@ pub enum EntryKey {
 
     // auto derive
     _Path,
+    _Body,
 }
 
 impl Serialize for EntryKey {
@@ -63,6 +64,7 @@ impl fmt::Display for EntryKey {
             Self::Slug => write!(f, "slug"),
             Self::Title => write!(f, "title"),
             Self::_Path => write!(f, "_path"),
+            Self::_Body => write!(f, "_body"),
             _ => write!(f, "unknown"),
         }
     }
@@ -149,6 +151,16 @@ impl Metadata<EntryKey> for Entry {
 
     fn to_json(&self) -> Value {
         json!(self._map)
+    }
+}
+
+impl Entry {
+    pub fn get_path(&self) -> String {
+        self.get(EntryKey::_Path).unwrap()
+    }
+
+    pub fn get_body(&self) -> String {
+        self.get(EntryKey::_Body).unwrap()
     }
 }
 
