@@ -24,9 +24,11 @@ path = "src/lib.rs"
 glob = "0.3.0"
 handlebars = "4.1.0"
 document_tree = "0.4.0"
+lazy_static = "1.4.0"
+regex = "1.5"
 rst_parser = "0.4.0"
 rst_renderer = "0.4.0"
-serde = "1.0"
+serde = { version = "1.0", features = ["derive"] }
 serde_derive = "1.0"
 serde_json = "1.0"
 

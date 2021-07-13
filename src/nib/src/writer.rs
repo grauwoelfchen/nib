@@ -4,13 +4,21 @@ use std::io::{Error, ErrorKind, Write};
 use std::path::Path;
 
 use handlebars::Handlebars;
+use rst_parser::parse_only;
+use document_tree::{Document, HasChildren};
+use document_tree::element_categories::{
+    BodyElement as BE, StructuralSubElement as SSE, SubStructure as SS,
+    TextOrInlineElement as TOIE,
+};
 use serde_json::Value;
+use regex::Regex;
 
 use crate::include_static_file;
 use crate::config::Config;
+use crate::document::MyDocument;
 use crate::fs::to_child_str_path;
 use crate::loader::load_data;
-use crate::metadata::{Author, EntryKey as Key, Entry, Metadata};
+use crate::metadata::{Author, EntryKey as Key, Entry, Heading, Metadata};
 
 fn merge_authors<'a>(meta: &'a mut Value, c: &Config) -> &'a mut Value {
     *meta.pointer_mut("/website/metadata/authors").unwrap() =
@@ -26,6 +34,35 @@ fn merge_authors<'a>(meta: &'a mut Value, c: &Config) -> &'a mut Value {
             }
         ));
     meta
+}
+
+fn extract_heading_tree(doc: &mut Document) -> Vec<Heading> {
+    let md: &mut MyDocument =
+        unsafe { &mut *(doc as *mut Document as *mut MyDocument) };
+
+    lazy_static! {
+        static ref RE: Regex =
+            Regex::new(r"^<(h[1-6])>(.*)</h[1-6]>$").unwrap();
+    }
+
+    let mut tree: Vec<Heading> = vec![];
+    for (_, e) in md.children().iter().enumerate() {
+        if let SSE::SubStructure(ref s1) = e {
+            if let SS::BodyElement(ref be) = **s1 {
+                if let BE::Paragraph(ref p) = **be {
+                    for c in p.children() {
+                        if let TOIE::String(ref s) = c {
+                            if let Some(cap) = RE.captures(&s) {
+                                let h = Heading::new(&cap[1], &cap[2]);
+                                tree.push(h);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    tree
 }
 
 /// generates an entry into file in the dst directory and returns its metadata.
@@ -53,9 +90,17 @@ pub fn make_entry(
     e.add(Key::_Path, to_child_str_path(&path));
     e.add(Key::Slug, name);
 
+    // TOC
+    let s = e.get(Key::Content).unwrap();
+    let mut tree: Vec<Heading> = vec![];
+    if let Ok(mut doc) = parse_only(&s) {
+        tree = extract_heading_tree(&mut doc);
+    }
+
     let mut meta = &mut json!({
         "website": cfg.website.to_json(),
         "article": e.to_json(),
+        "tree": tree,
     });
     meta = merge_authors(meta, cfg);
 

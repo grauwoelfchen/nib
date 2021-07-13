@@ -1,9 +1,14 @@
 <div id="sidebar">
   <div class="sidebar-item">
-    {{#each headlines}}
     <ul class="link">
+    {{#if article}}
+      <li><a href="/">Index</a></li>
+    {{/if}}
+    {{#each headlines}}
       <li><a href="{{this._path}}">{{this.title}}</a></li>
-    </ul>
+    {{/each}}
+    {{#each tree}}
+      <li><a href="#{{this.tag}}">{{this.text}}</a></li>
     {{/each}}
   </div>
 </div>
