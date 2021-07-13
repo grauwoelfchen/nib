@@ -1,3 +1,6 @@
+Wed 14 Jul 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
+	* Add extracted headings in documentation sidebar
+
 Fri 09 Jul 2021 Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>
 	* Add doc tests for internal macros (Run make test:doc run make test:all)
 	* Move assets files (static) to nib crate

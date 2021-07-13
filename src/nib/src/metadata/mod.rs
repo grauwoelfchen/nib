@@ -1,5 +1,6 @@
 mod author;
 mod entry;
+mod heading;
 
 use std::fmt;
 use std::hash::Hash;
@@ -8,6 +9,7 @@ use serde_json::Value;
 
 pub use author::{AuthorKey, Author};
 pub use entry::{EntryKey, Entry, KEY_PREFIX, KEY_SUFFIX};
+pub use heading::Heading;
 
 use serde::Serialize;
 
