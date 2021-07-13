@@ -8,7 +8,7 @@ stages:
   except:
     - tags
 
-err:
+check:
   stage: vet
   <<: *vet-tools
   before_script:
@@ -16,7 +16,7 @@ err:
     - cargo --version
     - mkdir -p .git/hooks
   script:
-    - make vet:error
+    - make vet:check
 
 fmt:
   stage: vet
