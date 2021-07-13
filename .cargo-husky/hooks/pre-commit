@@ -2,6 +2,6 @@
 
 set -ex
 
-# vet:error, vet:format and vet:lint
+# vet:check, vet:format and vet:lint
 echo '+make vet:all'
 make vet:all
