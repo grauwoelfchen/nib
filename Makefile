@@ -1,16 +1,10 @@
 # vet
-vet\:error: # Check error [synonym: vet:err, error, err]
+vet\:check: # Check error [synonym: check]
 	@cargo check --all --verbose
-.PHONY: vet\:error
+.PHONY: vet\:check
 
-vet\:err: vet\:error
-.PHONY: vet\:err
-
-error: vet\:error
-.PHONY: error
-
-err: vet\:error
-.PHONY: err
+check: vet\:check
+.PHONY: check
 
 vet\:format: # Show format diff [synonym: vet:fmt, format, fmt]
 	@cargo fmt --all -- --check
@@ -32,7 +26,7 @@ vet\:lint: # Show suggestions relates to hygiene [synonym: lint]
 lint: vet\:lint
 .PHONY: lint
 
-vet\:all: err fmt lint # Run all vet targets
+vet\:all: check fmt lint # Run all vet targets
 .PHONY: vet\:all
 
 vet: vet\:check # Alias for vet:check
