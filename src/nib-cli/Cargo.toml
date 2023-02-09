@@ -24,7 +24,7 @@ path = "src/main.rs"
 [dependencies]
 # nib = "0.0.8"
 nib = { path = "../nib" }
-toml = "0.5"
+toml = "0.7"
 
 [dev-dependencies.cargo-husky]
 version = "1"
