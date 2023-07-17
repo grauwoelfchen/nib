@@ -217,8 +217,8 @@ body {
 
 .header {
   padding-top: 1rem;
-  padding-bottom: 1rem;
-  margin-bottom: 2.12rem;
+  padding-bottom: 0.36rem;
+  margin-bottom: 1.22rem;
 }
 
 /* footer */
@@ -283,7 +283,7 @@ body {
 }
 
 .sidebar-item {
-  padding: 1rem;
+  padding: 0.95rem;
   font-size: 1.11em;
 }
 
@@ -303,6 +303,10 @@ body {
 
 .sidebar-item p:last-child {
   margin-bottom: 0;
+}
+
+.sidebar-item .author {
+  margin-top: 0.06rem;
 }
 
 .sidebar-item .author .name,
@@ -349,28 +353,37 @@ a.sidebar-nav-item:focus {
 }
 
 label[for="sidebar-checkbox"] {
-  position: absolute;
-  top: .7rem;
-  left: 1rem;
+  background-color: #d7d7d7;
+  border-radius: 0.165rem;
   display: block;
-  padding: .25rem .75rem;
   color: #444444;
-  background-color: #fff;
-  border-radius: 0;
   cursor: pointer;
+  left: 0.462rem;
+  padding: 0.18rem 0.35rem 0.18rem 0.656rem;
+  position: absolute;
+  top: 1.644rem;
+}
+
+label[for="sidebar-checkbox"]:hover {
+  background-color: #e4e4e4;
+  color: #222222;
 }
 
 label[for="sidebar-checkbox"]:before {
+  font-family: monospace;
+  font-weight: normal;
+  content: "❯";
   display: inline-block;
-  width: 1rem;
-  height: .75rem;
-  content: "☰";
+  height: 0.75rem;
+  width: 0.96rem;
 }
 
 label[for="sidebar-checkbox"]:active:before,
 #sidebar-checkbox:focus ~ label[for="sidebar-checkbox"]:before,
 #sidebar-checkbox:checked ~ label[for="sidebar-checkbox"]:before {
-  content: "☰";
+  font-family: monospace;
+  font-weight: normal;
+  content: "❮";
 }
 
 @media (min-width: 30.1em) {
@@ -408,9 +421,9 @@ label[for="sidebar-checkbox"] {
 
 .header h2.title {
   color: #505050;
-  font-size: 1.26rem;
+  font-size: 1.786rem;
   margin-bottom: 0;
-  margin-top: 0.23rem;
+  margin-top: 0.59rem;
 }
 
 .title a {
