@@ -7,7 +7,7 @@ use crate::include_template_file;
 pub fn init_registry<'a>() -> Result<Handlebars<'a>, Error> {
     let mut reg = Handlebars::new();
 
-    let theme = "documentation";
+    let theme = "blog";
 
     // TODO: support user defined template
     #[allow(clippy::vec_init_then_push)]
